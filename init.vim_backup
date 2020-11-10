@@ -1,0 +1,41 @@
+" vim: ft=vim
+ " ___________________________
+" < NEOVIM Configuration File >
+ " ---------------------------
+ "        \   ^__^
+ "         \  (oo)\_______
+ "            (__)\       )\/\
+ "                ||----w |
+ "                ||     ||
+
+set encoding=utf-8
+
+if exists('g:vscode')
+
+    source ~/.config/nvim/config/basic.vim
+
+" elseif exists('g:started_by_firenvim')
+
+"     source ~/.config/nvim/config/basic.vim
+
+else
+    source ~/.config/nvim/config/plugins.vim
+
+    source ~/.config/nvim/config/basic.vim
+
+    source ~/.config/nvim/config/colorscheme.vim
+
+    " source ~/.config/nvim/config/floaterm.vim
+
+    source ~/.config/nvim/config/completions.vim
+
+    " source ~/.config/nvim/config/lua-tree.vim
+
+    " source ~/.config/nvim/config/fzf.vim
+
+    " source ~/.config/nvim/config/corpus.vim
+
+    " source ~/.config/nvim/config/goyo.vim
+
+    source ~/.config/nvim/config/tree-sitter.vim
+endif
