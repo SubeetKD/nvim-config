@@ -31,22 +31,26 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "" Plug install packages
 "*****************************************************************************
 
+" Completion
 Plug 'nvim-lua/completion-nvim'
 Plug 'steelsojka/completion-buffers'
+Plug 'kristijanhusak/completion-tags'
 
-Plug 'nvim-lua/diagnostic-nvim'
+" Diagnostic and lsp
 Plug 'neovim/nvim-lspconfig'
 
-Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-
+" Formatter
 Plug 'mhartington/formatter.nvim'
+
+"" --- Language specific plugins
+Plug 'tjdevries/nlua.nvim'
 
 "---- File managment
 "
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/telescope.nvim'
-Plug 'mbbill/undotree'
+" Plug 'mbbill/undotree'
 
 "--------- Git Plugins ----------
 
@@ -54,7 +58,8 @@ Plug 'norcalli/snippets.nvim'
 Plug 'vimwiki/vimwiki'
 
 "---- utility plugins
-
+Plug 'glepnir/indent-guides.nvim'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(420) } }
 Plug 'tpope/vim-commentary'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
@@ -63,31 +68,26 @@ Plug 'mhinz/vim-startify'
 
 "========== Syntax highlight -------
 
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
 Plug 'mboughaba/i3config.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 
-"================ Color Schemes ======================="
 
-Plug 'glepnir/galaxyline.nvim'
+Plug 'tjdevries/express_line.nvim'
 Plug 'norcalli/nvim.lua'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tjdevries/colorbuddy.vim'
-Plug 'tjdevries/gruvbuddy.nvim'
-Plug 'christianchiarulli/nvcode-color-schemes.vim'
+Plug 'glepnir/zephyr-nvim'
 
-" Don't use now
-Plug 'luochen1990/rainbow'
+"================ Color Schemes ======================="
+
+Plug 'tjdevries/gruvbuddy.nvim'
 Plug 'gruvbox-community/gruvbox'
-Plug 'sainnhe/gruvbox-material'
-Plug 'NieTiger/halcyon-neovim'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'ghifarit53/tokyonight-vim'
-Plug 'chriskempson/base16-vim'
-Plug 'ayu-theme/ayu-vim' " or other package manager
+Plug 'bluz71/vim-moonfly-colors'
+
 call plug#end()
 " }}}
 
@@ -111,7 +111,8 @@ set winblend=0
 set nu rnu
 set pumblend=25                 " set transparency in pop-up menu
 set foldmethod=marker
-set guifont=Hack\ Nerd\ Font:h17
+set guifont=JetBrainsMono\ Nerd\ Font:h12
+set guicursor=
 
 if has("persistent_undo")
     set undodir="/home/subeet/.config/nvim/undodir"
@@ -119,7 +120,7 @@ if has("persistent_undo")
 endif
 
 set colorcolumn=80
-highlight ColorColumn ctermbg=0 guibg=grey
+highlight ColorColumn ctermfg=cyan guibg=#679889
 "---------------------- Mapings -----------------
 
 let mapleader=' '
@@ -133,15 +134,17 @@ nnoremap <silent> <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : ":nohl\<CR>"
 " Source init.vim
 nnoremap sho <cmd> so $MYVIMRC<cr>
 
+inoremap <A-BS> <C-W>
+
+" Ascii magic
+nmap <leader>f :.!toilet -w 200 -f standar <cr>
+nmap <leader>1 :.!toilet -w 200 -f term -F border <cr>
 
 " -------------------- Making life easy
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 vnoremap X "_d
 nnoremap x "_x
-
-" Map Ctrl-Backspace to delete the previous word in insert mode.
-inoremap <C-BS> <C-W>
 
 " ----------------- Terminal Emulation -------
 
@@ -190,19 +193,13 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 " }}}
 
-" Colorscheme {{{
-let g:palenight_terminal_italics = 1
-let g:palenight_termcolors = 256
+" Treesitter {{{ 
+lua require('treesitter-config')
+" }}} 
 
+" Colorscheme {{{
 let g:gruvbox_contrast_dark = "hard"
 let g:gruvbox_contrast_light = "soft"
-
-" let g:base16_color_modifiers = {'Comment': 'fg=brown'}
-" let g:base16_transparent_background = 1
-let base16colorspace=256  " Access colors present in 256 colorspace
-
-let g:tokyonight_style = 'night' "storm or night
-let g:tokyonight_enable_italic = 1
 
 let g:nvcode_termcolors=256
 
@@ -210,23 +207,26 @@ let g:nvcode_termcolors=256
 " let ayucolor="mirage" " for mirage version of theme
 let ayucolor="dark"   " for dark version of theme
 
-set bg=dark
-" colorscheme palenight
-" colorscheme tokyonight
-" colorscheme codedark
-" colorscheme gruvbox
-colorscheme snazzy
-" colorscheme base16-tomorrow-night
-" colorscheme base16-oceanicnext
-" colorscheme nvcode
-" colorscheme ayu
+let g:moonflyCursorColor = 1
+let g:moonflyTerminalColors = 0
+let g:moonflyUnderlineMatchParen = 1
+let g:moonflyUndercurls = 0
+let g:moonflyItalics = 1
 
-" And then somewhere in your vimrc, to set the colorscheme
+set bg=dark
+" colorscheme gruvbox
+" colorscheme nord
+" colorscheme moonfly
+" colorscheme OceanicNext
+" colorscheme ayu
 " lua require('colorbuddy').colorscheme('gruvbuddy')
+lua require('zephyr')
+
+lua require('indent_guides').default_opts = { indent_levels = 30; indent_guide_size = 0; indent_start_level = 1; indent_space_guides = true; indent_tab_guides = true; indent_pretty_guides = false; indent_soft_pattern = '\\s'; exclude_filetypes = {'help'} }
 
 lua require 'colorizer'.setup(nil, { css = true; })
 
-lua require('galaxyline-config')
+lua require('statusline-config')
 
 highlight Comment cterm=italic gui=italic
 
@@ -267,52 +267,6 @@ let g:rainbow_conf = {
 \	}
 \}
 
-" Don't use anymore
-" let g:airline_theme='base16'
-" " vim-airline
-" let g:airline#extensions#branch#enabled = 1
-" let g:airline#extensions#ale#enabled = 1
-" let g:airline#extensions#tabline#enabled = 0
-" let g:airline#extensions#tagbar#enabled = 1
-" let g:airline_skip_empty_sections = 1
-
-" let g:airline_powerline_fonts = 1
-
-" " vim-airline
-" if !exists('g:airline_symbols')
-"   let g:airline_symbols = {}
-" endif
-
-" if !exists('g:airline_powerline_fonts')
-"   let g:airline#extensions#tabline#left_sep = ' '
-"   let g:airline#extensions#tabline#left_alt_sep = '|'
-"   let g:airline_left_sep          = '▶'
-"   let g:airline_left_alt_sep      = '»'
-"   let g:airline_right_sep         = '◀'
-"   let g:airline_right_alt_sep     = '«'
-"   let g:airline#extensions#branch#prefix     = '➔' "➔, ➥, ⎇ ⤴
-"   let g:airline#extensions#readonly#symbol   = '⊘'
-"   let g:airline#extensions#linecolumn#prefix = '¶'
-"   let g:airline#extensions#paste#symbol      = 'ρ'
-"   let g:airline_symbols.linenr    = '␊'
-"   let g:airline_symbols.branch    = '⎇'
-"   let g:airline_symbols.paste     = 'ρ'
-"   let g:airline_symbols.paste     = 'Þ'
-"   let g:airline_symbols.paste     = '∥'
-"   let g:airline_symbols.whitespace = 'Ξ'
-" else
-"   let g:airline#extensions#tabline#left_sep = ''
-"   let g:airline#extensions#tabline#left_alt_sep = ''
-
-"   " powerline symbols
-"   let g:airline_left_sep = ''
-"   let g:airline_left_alt_sep = ''
-"   let g:airline_right_sep = ''
-"   let g:airline_right_alt_sep = ''
-"   let g:airline_symbols.branch = ''
-"   let g:airline_symbols.readonly = ''
-"   let g:airline_symbols.linenr = ''
-" endif
 " }}} 
 
 " Starttify telescope and Formatter {{{ 
@@ -329,7 +283,7 @@ let g:startify_lists = [
 
 " Formatter.nvim
 lua require('custom-format')
-autocmd BufWritePost *.cpp,*.js,*.lua silent! Format
+autocmd BufWritePost *.cpp,*.js silent! Format
 
 " Telescope.nvim
 
@@ -350,16 +304,30 @@ inoremap <c-j> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
 lua require('completion_config')
 
 "-------------- diagnostic-nvim
-let g:diagnostic_show_sign = 0
-let g:diagnostic_enable_virtual_text = 1
-let g:diagnostic_trimmed_virtual_text = '180'
-let g:space_before_virtual_text = 10
-let g:diagnostic_virtual_text_prefix = ' '
-let g:diagnostic_enable_underline = 1
+" let g:diagnostic_show_sign = 0
+" let g:diagnostic_enable_virtual_text = 1
+" let g:diagnostic_trimmed_virtual_text = '180'
+" let g:space_before_virtual_text = 10
+" let g:diagnostic_virtual_text_prefix = ' '
+" let g:diagnostic_enable_underline = 1
+
+" lua << EOF
+" vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+"     vim.lsp.diagnostic.on_publish_diagnostics, {
+"         virtual_text = {
+"             spacing = 4,
+"             prefix = ' '
+"         },
+"         signs = true,
+"         update_in_insert = false,
+"         underline = true,
+"     }
+" )
+" EOF
 
 " Mapings for easy navigations
-nnoremap ]e :NextDiagnosticCycle<cr>
-nnoremap [e :PrevDiagnosticCycle<cr>
+nnoremap ]e <cmd> lua vim.lsp.diagnostic.goto_prev() <cr>
+nnoremap [e <cmd> lua vim.lsp.diagnostic.goto_next() <cr>
 
 ""------------- completion-nvim
 
@@ -375,14 +343,16 @@ let g:completion_enable_snippet = 'snippets.nvim'
 
 let g:completion_chain_complete_list = [
             \  {'complete_items': ['path'],'triggered_only' : ['/']},
-            \  {'complete_items': ['lsp','snippet','buffers']},
+            \  {'complete_items': ['lsp']},
+            \  {'complete_items': ['tags']},
+            \  {'complete_items': ['snippet','buffers']},
             \  {'mode': '<c-p>'},
             \  {'mode': '<c-n>'}
             \]
 
-let g:completion_enable_auto_hover = 1
+let g:completion_enable_auto_hover = 0
 
-let g:Completion_matching_smart_case = 1
+let g:Completion_matching_smart_case = 0
 
 autocmd BufEnter * lua require'completion'.on_attach()
 
@@ -403,9 +373,9 @@ inoremap <silent><expr> <TAB>
   \ completion#trigger_completion()
 
 
-let g:completion_confirm_key = ""
-imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
-                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+ let g:completion_confirm_key = ""
+ imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
+                  \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 
 "-------- Nvim - lsp
 
@@ -417,8 +387,10 @@ nnoremap <leader>vd :lua vim.lsp.buf.definition()<CR>
 nnoremap <leader>vi :lua vim.lsp.buf.implementation()<CR>
 nnoremap <leader>vsh :lua vim.lsp.buf.signature_help()<CR>
 nnoremap <leader>vrr :lua vim.lsp.buf.references()<CR>
-nnoremap <leader>vrn :lua vim.lsp.buf.rename()<CR>
+" nnoremap <leader>vrn :lua require('nvim-lspconfig').MyLspRename() <CR>
 nnoremap <leader>vh :lua vim.lsp.buf.hover()<CR>
+" nnoremap <leader>vrn :lua vim.lsp.buf.rename()<cr>
+nnoremap <leader>vrn :lua MyLspRename() <cr>
 nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
 
 " --- nvim web devicons
@@ -426,7 +398,29 @@ lua require'nvim-web-devicons'.setup()
 
 " }}} 
 
-" Treesitter {{{ 
-lua require('treesitter-config')
-" }}} 
+" Firenvim Configuration {{{ 
+if exists('g:started_by_firenvim')
+  set laststatus=0
+else
+  set laststatus=2
+endif
+au BufEnter github.com_*.txt set filetype=markdown
+au BufEnter *interviewbit.com_*.txt set filetype=cpp
 
+let g:firenvim_config = { 
+    \ 'globalSettings': {
+        \ 'alt': 'all',
+    \  },
+    \ 'localSettings': {
+        \ '.*': {
+            \ 'cmdline': 'neovim',
+            \ 'priority': 0,
+            \ 'selector': 'textarea',
+            \ 'takeover': 'always',
+        \ },
+    \ }
+\ }
+
+let fc = g:firenvim_config['localSettings']
+let fc['https?://youtube.com/'] = { 'takeover': 'never', 'priority': 1 }
+" }}}

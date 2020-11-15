@@ -6,7 +6,7 @@ local M = {}
 function M.edit_dotfile()
     tele.git_files{
         shorten_path = true,
-        cwd = "~/.local/src/dot_file/config/nvim",
+        cwd = "~/.local/src/nvim-config/",
         prompt = " %% Dotfile %% ",
         height = 20,
 

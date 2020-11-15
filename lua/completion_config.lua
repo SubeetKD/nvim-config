@@ -1,5 +1,6 @@
 -- Snippet configuration
 local snip = require('snippets')
+local vim = vim
 
 snip.snippets = {
     _global = {
@@ -8,6 +9,14 @@ snip.snippets = {
         date = os.date;
     };
     cpp = {
+        -- TreeNode
+        TreeNode = [[
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x) , left(NULL), right(NULL) {}
+};]];
         -- leetcode template
         leetcode = [[
 #include <bits/stdc++.h>
@@ -48,3 +57,15 @@ signed main(){
     };
 }
 
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = {
+            spacing = 10,
+            prefix = ' '
+        },
+        signs = true,
+        update_in_insert = false,
+        underline = true,
+    }
+)

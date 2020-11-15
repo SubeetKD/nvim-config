@@ -1,7 +1,7 @@
 local tree_sitter = require('nvim-treesitter.configs')
 
 tree_sitter.setup{
-    ensure_installed = {"cpp","lua"},
+    ensure_installed = {"cpp","lua","python","c","yaml","json","html"},
     highlight = {
         enable = true,
     },
