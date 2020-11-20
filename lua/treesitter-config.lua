@@ -17,5 +17,9 @@ tree_sitter.setup{
     },
     indent = {
         enable = true,
-    },
+    }
+    -- rainbow = {
+    --    enable = true,
+    --    disable = {'lua', 'bash'} -- please disable lua and bash for now
+    -- }
 }

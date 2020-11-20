@@ -1,4 +1,13 @@
 " vim : ft=vim
+ " ______________________________
+" < terminal is a text editor ?? >
+ " ------------------------------
+ "        \   ^__^
+ "         \  (oo)\_______
+ "            (__)\       )\/\
+ "                ||----w |
+ "                ||     ||
+ "
 set fileencoding=utf-8
 
 " Bootstraping {{{ 
@@ -53,6 +62,8 @@ Plug 'nvim-lua/telescope.nvim'
 " Plug 'mbbill/undotree'
 
 "--------- Git Plugins ----------
+"
+Plug 'f-person/git-blame.nvim'
 
 Plug 'norcalli/snippets.nvim'
 Plug 'vimwiki/vimwiki'
@@ -64,7 +75,10 @@ Plug 'tpope/vim-commentary'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'mhinz/vim-startify'
+Plug 'romgrk/barbar.nvim'
+Plug 'akinsho/nvim-toggleterm.lua'
 
 "========== Syntax highlight -------
 
@@ -81,6 +95,7 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tjdevries/colorbuddy.vim'
 Plug 'glepnir/zephyr-nvim'
+Plug 'p00f/nvim-ts-rainbow'
 
 "================ Color Schemes ======================="
 
@@ -100,7 +115,6 @@ set termguicolors
 set ignorecase
 set clipboard+=unnamedplus
 set tabstop=4 shiftwidth=4
-" set tabstop=2 shiftwidth=2
 set expandtab
 set noswapfile
 set mouse=a
@@ -111,8 +125,11 @@ set winblend=0
 set nu rnu
 set pumblend=25                 " set transparency in pop-up menu
 set foldmethod=marker
+set scrolloff=8
 set guifont=JetBrainsMono\ Nerd\ Font:h12
-set guicursor=
+set backspace=indent,eol,start
+" How to set this so it won't break config
+" set list listchars=eol:¬
 
 if has("persistent_undo")
     set undodir="/home/subeet/.config/nvim/undodir"
@@ -137,7 +154,7 @@ nnoremap sho <cmd> so $MYVIMRC<cr>
 inoremap <A-BS> <C-W>
 
 " Ascii magic
-nmap <leader>f :.!toilet -w 200 -f standar <cr>
+" nmap <leader>f :.!toilet -w 200 -f standar <cr>
 nmap <leader>1 :.!toilet -w 200 -f term -F border <cr>
 
 " -------------------- Making life easy
@@ -159,6 +176,11 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
+
+" Vim Galore recommended mappings
+" Make next and previous use smart history
+cnoremap <C-N> <Up>
+cnoremap <C-P> <Down>
 
 
 "------------------------ Competitive coding ------
@@ -216,13 +238,13 @@ let g:moonflyItalics = 1
 set bg=dark
 " colorscheme gruvbox
 " colorscheme nord
-" colorscheme moonfly
+ " colorscheme moonfly
 " colorscheme OceanicNext
 " colorscheme ayu
 " lua require('colorbuddy').colorscheme('gruvbuddy')
 lua require('zephyr')
 
-lua require('indent_guides').default_opts = { indent_levels = 30; indent_guide_size = 0; indent_start_level = 1; indent_space_guides = true; indent_tab_guides = true; indent_pretty_guides = false; indent_soft_pattern = '\\s'; exclude_filetypes = {'help'} }
+" lua require('indent_guides').default_opts = { indent_levels = 30; indent_guide_size = 0; indent_start_level = 1; indent_space_guides = true; indent_tab_guides = true; indent_pretty_guides = true; indent_soft_pattern = '\\s'; exclude_filetypes = {'help'} }
 
 lua require 'colorizer'.setup(nil, { css = true; })
 
@@ -269,6 +291,11 @@ let g:rainbow_conf = {
 
 " }}} 
 
+" Git Configuration {{{
+let g:gitblame_enabled  = 1
+let g:gitblame_message_template = '<summary> • <date> • <author>'
+" }}} 
+
 " Starttify telescope and Formatter {{{ 
 
 " Automatic save sessions
@@ -283,7 +310,7 @@ let g:startify_lists = [
 
 " Formatter.nvim
 lua require('custom-format')
-autocmd BufWritePost *.cpp,*.js silent! Format
+autocmd BufWritePost *.cpp,*.js,*.lua silent! Format
 
 " Telescope.nvim
 
@@ -292,6 +319,7 @@ nnoremap <leader>tff <cmd>lua require('my_finder').find_files()<cr>
 nnoremap <leader>tdf <cmd>lua require('my_finder').edit_dotfile()<cr>
 nnoremap <leader>tfb <cmd>lua require('my_finder').buffer()<cr>
 nnoremap <leader>trg <cmd>lua require('my_finder').live_grep()<cr>
+nnoremap <leader>tbb <cmd>lua require('telescope.builtin').builtin()<cr>
 
 " }}} 
 
@@ -301,29 +329,8 @@ nnoremap <leader>trg <cmd>lua require('my_finder').live_grep()<cr>
 inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>
 inoremap <c-j> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
 
+" diagnostic is also here
 lua require('completion_config')
-
-"-------------- diagnostic-nvim
-" let g:diagnostic_show_sign = 0
-" let g:diagnostic_enable_virtual_text = 1
-" let g:diagnostic_trimmed_virtual_text = '180'
-" let g:space_before_virtual_text = 10
-" let g:diagnostic_virtual_text_prefix = ' '
-" let g:diagnostic_enable_underline = 1
-
-" lua << EOF
-" vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-"     vim.lsp.diagnostic.on_publish_diagnostics, {
-"         virtual_text = {
-"             spacing = 4,
-"             prefix = ' '
-"         },
-"         signs = true,
-"         update_in_insert = false,
-"         underline = true,
-"     }
-" )
-" EOF
 
 " Mapings for easy navigations
 nnoremap ]e <cmd> lua vim.lsp.diagnostic.goto_prev() <cr>
@@ -335,7 +342,7 @@ nnoremap [e <cmd> lua vim.lsp.diagnostic.goto_next() <cr>
 
 let g:completion_auto_change_source = 1
 
-let g:completion_enable_auto_popup = 0
+let g:completion_enable_auto_popup = 1
 
 let g:completion_matching_strategy_list = ['exact','substring','fuzzy']
 
@@ -423,4 +430,112 @@ let g:firenvim_config = {
 
 let fc = g:firenvim_config['localSettings']
 let fc['https?://youtube.com/'] = { 'takeover': 'never', 'priority': 1 }
+" }}}
+
+" Nvim lua tree {{{
+let g:lua_tree_side = 'left'  "left by default
+let g:lua_tree_width = 40 "30 by default
+let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
+let g:lua_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
+let g:lua_tree_auto_close = 0 "0 by default, closes the tree when it's the last window
+let g:lua_tree_quit_on_open = 0 "0 by default, closes the tree when you open a file
+let g:lua_tree_follow = 0 "0 by default, this option allows the cursor to be updated when entering a buffer
+" let g:lua_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
+" let g:lua_tree_hide_dotfiles = 1 "0 by default, this option hides files and folders starting with a dot `.`
+" let g:lua_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
+" let g:lua_tree_root_folder_modifier = ':~' "This is the default. See :help filename-modifiers for more options
+" let g:lua_tree_tab_open = 1 "0 by default, will open the tree when entering a new tab and the tree was previously open
+" let g:lua_tree_allow_resize = 1 "0 by default, will not resize the tree when opening a file
+let g:lua_tree_show_icons = {
+    \ 'git': 1,
+    \ 'folders': 0,
+    \ 'files': 0,
+    \ }
+"If 0, do not show the icons for one of 'git' 'folder' and 'files'
+"1 by default, notice that if 'files' is 1, it will only display
+"if nvim-web-devicons is installed and on your runtimepath
+
+" You can edit keybindings be defining this variable
+" You don't have to define all keys.
+" NOTE: the 'edit' key will wrap/unwrap a folder and open a file
+let g:lua_tree_bindings = {
+    \ 'edit':            ['<CR>', 'o'],
+    \ 'edit_vsplit':     '<C-v>',
+    \ 'edit_split':      '<C-x>',
+    \ 'edit_tab':        '<C-t>',
+    \ 'toggle_ignored':  'I',
+    \ 'toggle_dotfiles': 'H',
+    \ 'refresh':         'R',
+    \ 'preview':         '<Tab>',
+    \ 'cd':              '<C-]>',
+    \ 'create':          'a',
+    \ 'remove':          'd',
+    \ 'rename':          'r',
+    \ 'cut':             'x',
+    \ 'copy':            'c',
+    \ 'paste':           'p',
+    \ 'prev_git_item':   '[c',
+    \ 'next_git_item':   ']c',
+    \ }
+
+" Disable default mappings by plugin
+" Bindings are enable by default, disabled on any non-zero value
+" let lua_tree_disable_keybindings=1
+
+" default will show icon by default if no icon is provided
+" default shows no icon by default
+let g:lua_tree_icons = {
+    \ 'default': '',
+    \ 'symlink': '',
+    \ 'git': {
+    \   'unstaged': "✗",
+    \   'staged': "✓",
+    \   'unmerged': "",
+    \   'renamed': "➜",
+    \   'untracked': "★"
+    \   },
+    \ 'folder': {
+    \   'default': "",
+    \   'open': ""
+    \   }
+    \ }
+
+nnoremap <C-n> :LuaTreeToggle<CR>
+nnoremap <leader>r :LuaTreeRefresh<CR>
+nnoremap <leader>n :LuaTreeFindFile<CR>
+" LuaTreeOpen and LuaTreeClose are also available if you need them
+
+" a list of groups can be found at `:help lua_tree_highlight`
+highlight LuaTreeFolderIcon guibg=blue
+" }}}
+
+" BarBar.nvim {{{
+" Magic buffer-picking mode
+nnoremap <silent> <C-s> :BufferPick<CR>
+" Sort automatically by...
+nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
+nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
+" Move to previous/next
+nnoremap <silent>   <leader>, :BufferPrevious<CR>
+nnoremap <silent>   <leader>. :BufferNext<CR>
+" Re-order to previous/next
+nnoremap <silent>    <leader>< :BufferMovePrevious<CR>
+nnoremap <silent>    <leader>> :BufferMoveNext<CR>
+" Goto buffer in position...
+nnoremap <silent>    <leader>1 :BufferGoto 1<CR>
+nnoremap <silent>    <leader>2 :BufferGoto 2<CR>
+nnoremap <silent>    <leader>3 :BufferGoto 3<CR>
+nnoremap <silent>    <leader>4 :BufferGoto 4<CR>
+nnoremap <silent>    <leader>5 :BufferGoto 5<CR>
+nnoremap <silent>    <leader>6 :BufferGoto 6<CR>
+nnoremap <silent>    <leader>7 :BufferGoto 7<CR>
+nnoremap <silent>    <leader>8 :BufferGoto 8<CR>
+nnoremap <silent>    <leader>9 :BufferLast<CR>
+" Close buffer
+nnoremap <silent>    <A-c> :BufferClose<CR>
+" }}}
+
+" Terminal Integration {{{
+lua require('terminal-config')
+nnoremap <F8> <cmd>ToggleTerm<cr>
 " }}}

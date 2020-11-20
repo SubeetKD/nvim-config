@@ -17,6 +17,14 @@ struct TreeNode {
     TreeNode *right;
     TreeNode(int x) : val(x) , left(NULL), right(NULL) {}
 };]];
+        -- test
+        test = [[
+    int test;
+    cin >> test;
+
+    while(test--){
+        $0
+    }]];
         -- leetcode template
         leetcode = [[
 #include <bits/stdc++.h>
@@ -64,7 +72,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
             spacing = 10,
             prefix = ' '
         },
-        signs = true,
+        signs = false,
         update_in_insert = false,
         underline = true,
     }
