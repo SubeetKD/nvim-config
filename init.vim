@@ -28,6 +28,8 @@ if !filereadable(vimplug_exists)
   silent exec "!"curl_exists" -fLo " . shellescape(vimplug_exists) . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
   let g:not_finish_vimplug = "yes"
 
+
+
   autocmd VimEnter * PlugInstall
 endif
 " }}}
@@ -56,6 +58,7 @@ Plug 'tjdevries/nlua.nvim'
 
 "---- File managment
 "
+Plug 'nvim-lua/lsp-status.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/telescope.nvim'
@@ -94,14 +97,17 @@ Plug 'norcalli/nvim.lua'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tjdevries/colorbuddy.vim'
-Plug 'glepnir/zephyr-nvim'
 Plug 'p00f/nvim-ts-rainbow'
 
 "================ Color Schemes ======================="
 
+Plug 'joshdick/onedark.vim'
+Plug 'mhartington/oceanic-next'
+Plug 'christianchiarulli/nvcode-color-schemes.vim'
+Plug 'npxbr/gruvbox.nvim'
+Plug 'Th3Whit3Wolf/onebuddy'
 Plug 'tjdevries/gruvbuddy.nvim'
-Plug 'gruvbox-community/gruvbox'
-Plug 'bluz71/vim-moonfly-colors'
+Plug 'glepnir/zephyr-nvim'
 
 call plug#end()
 " }}}
@@ -126,7 +132,7 @@ set nu rnu
 set pumblend=25                 " set transparency in pop-up menu
 set foldmethod=marker
 set scrolloff=8
-set guifont=JetBrainsMono\ Nerd\ Font:h12
+set guifont=JetBrainsMono\ Nerd\ Font:h17
 set backspace=indent,eol,start
 " How to set this so it won't break config
 " set list listchars=eol:¬
@@ -236,13 +242,17 @@ let g:moonflyUndercurls = 0
 let g:moonflyItalics = 1
 
 set bg=dark
-" colorscheme gruvbox
-" colorscheme nord
- " colorscheme moonfly
+
 " colorscheme OceanicNext
-" colorscheme ayu
-" lua require('colorbuddy').colorscheme('gruvbuddy')
-lua require('zephyr')
+" colorscheme gruvbox
+" colorscheme onedark
+" colorscheme aurora
+" colorscheme palenight
+" colorscheme nvcode
+" lua require('colorbuddy').colorscheme('gruvbox')
+lua require('colorbuddy').colorscheme('gruvbuddy')
+" lua require('colorbuddy').colorscheme('onebuddy') 
+" lua require('zephyr')
 
 " lua require('indent_guides').default_opts = { indent_levels = 30; indent_guide_size = 0; indent_start_level = 1; indent_space_guides = true; indent_tab_guides = true; indent_pretty_guides = true; indent_soft_pattern = '\\s'; exclude_filetypes = {'help'} }
 
@@ -292,7 +302,7 @@ let g:rainbow_conf = {
 " }}} 
 
 " Git Configuration {{{
-let g:gitblame_enabled  = 1
+let g:gitblame_enabled  = 0             " disable by default
 let g:gitblame_message_template = '<summary> • <date> • <author>'
 " }}} 
 
