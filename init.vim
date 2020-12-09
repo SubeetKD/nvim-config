@@ -1,4 +1,4 @@
-" vim : ft=vim
+  "vim : ft=vim
  " ______________________________
 " < terminal is a text editor ?? >
  " ------------------------------
@@ -72,7 +72,7 @@ Plug 'norcalli/snippets.nvim'
 Plug 'vimwiki/vimwiki'
 
 "---- utility plugins
-Plug 'glepnir/indent-guides.nvim'
+" Plug 'glepnir/indent-guides.nvim'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(420) } }
 Plug 'tpope/vim-commentary'
 Plug 'christoomey/vim-tmux-navigator'
@@ -108,6 +108,9 @@ Plug 'npxbr/gruvbox.nvim'
 Plug 'Th3Whit3Wolf/onebuddy'
 Plug 'tjdevries/gruvbuddy.nvim'
 Plug 'glepnir/zephyr-nvim'
+Plug 'phanviet/vim-monokai-pro'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'flazz/vim-colorschemes'
 
 call plug#end()
 " }}}
@@ -116,6 +119,7 @@ call plug#end()
  
  "------------------------------ Basic Configuration ----------------------
 
+set cursorline
 set smartcase
 set termguicolors
 set ignorecase
@@ -132,7 +136,7 @@ set nu rnu
 set pumblend=25                 " set transparency in pop-up menu
 set foldmethod=marker
 set scrolloff=8
-set guifont=JetBrainsMono\ Nerd\ Font:h17
+set guifont=SauceCodePro\ Nerd\ Font:h18
 set backspace=indent,eol,start
 " How to set this so it won't break config
 " set list listchars=eol:¬
@@ -243,6 +247,7 @@ let g:moonflyItalics = 1
 
 set bg=dark
 
+" colorscheme monokai_pro
 " colorscheme OceanicNext
 " colorscheme gruvbox
 " colorscheme onedark
@@ -250,9 +255,10 @@ set bg=dark
 " colorscheme palenight
 " colorscheme nvcode
 " lua require('colorbuddy').colorscheme('gruvbox')
-lua require('colorbuddy').colorscheme('gruvbuddy')
+" lua require('colorbuddy').colorscheme('gruvbuddy')
 " lua require('colorbuddy').colorscheme('onebuddy') 
-" lua require('zephyr')
+lua require('zephyr')
+
 
 " lua require('indent_guides').default_opts = { indent_levels = 30; indent_guide_size = 0; indent_start_level = 1; indent_space_guides = true; indent_tab_guides = true; indent_pretty_guides = true; indent_soft_pattern = '\\s'; exclude_filetypes = {'help'} }
 
@@ -265,6 +271,27 @@ highlight Comment cterm=italic gui=italic
 hi LineNr ctermbg=NONE guibg=NONE
 
 " hi Normal guibg=NONE ctermbg=NONE
+"
+fun! ColorMyPencils()
+    colorscheme ayu
+    set background=dark
+
+    let g:gruvbox_contrast_dark = 'hard'
+    if exists('+termguicolors')
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    endif
+    let g:gruvbox_invert_selection='0'
+
+    highlight ColorColumn ctermbg=0 guibg=grey
+    highlight Normal guibg=none
+    " highlight LineNr guifg=#ff8659
+    " highlight LineNr guifg=#aed75f
+    highlight LineNr guifg=#5eacd3
+    highlight netrwDir guifg=#5eacd3
+    highlight qfFileName guifg=#aed75f
+endfun
+call ColorMyPencils()
 
 let g:rainbow_active = 1
 let g:rainbow_conf = {
@@ -304,6 +331,8 @@ let g:rainbow_conf = {
 " Git Configuration {{{
 let g:gitblame_enabled  = 0             " disable by default
 let g:gitblame_message_template = '<summary> • <date> • <author>'
+
+lua require('git-config')
 " }}} 
 
 " Starttify telescope and Formatter {{{ 
@@ -358,14 +387,14 @@ let g:completion_matching_strategy_list = ['exact','substring','fuzzy']
 
 let g:completion_enable_snippet = 'snippets.nvim'
 
-let g:completion_chain_complete_list = [
-            \  {'complete_items': ['path'],'triggered_only' : ['/']},
-            \  {'complete_items': ['lsp']},
-            \  {'complete_items': ['tags']},
-            \  {'complete_items': ['snippet','buffers']},
-            \  {'mode': '<c-p>'},
-            \  {'mode': '<c-n>'}
-            \]
+" let g:completion_chain_complete_list = [
+"             \  {'complete_items': ['path'],'triggered_only' : ['/']},
+"             \  {'complete_items': ['lsp']},
+"             \  {'complete_items': ['tags']},
+"             \  {'complete_items': ['snippet','buffers']},
+"             \  {'mode': '<c-p>'},
+"             \  {'mode': '<c-n>'}
+"             \]
 
 let g:completion_enable_auto_hover = 0
 
