@@ -111,6 +111,7 @@ Plug 'glepnir/zephyr-nvim'
 Plug 'phanviet/vim-monokai-pro'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'flazz/vim-colorschemes'
+Plug 'npxbr/gruvbox.nvim'
 
 call plug#end()
 " }}}
@@ -257,8 +258,8 @@ set bg=dark
 " lua require('colorbuddy').colorscheme('gruvbox')
 " lua require('colorbuddy').colorscheme('gruvbuddy')
 " lua require('colorbuddy').colorscheme('onebuddy') 
-lua require('zephyr')
-
+" lua require('zephyr')
+lua require("colorbuddy").colorscheme("gruvbox")
 
 " lua require('indent_guides').default_opts = { indent_levels = 30; indent_guide_size = 0; indent_start_level = 1; indent_space_guides = true; indent_tab_guides = true; indent_pretty_guides = true; indent_soft_pattern = '\\s'; exclude_filetypes = {'help'} }
 
@@ -270,28 +271,28 @@ highlight Comment cterm=italic gui=italic
 
 hi LineNr ctermbg=NONE guibg=NONE
 
-" hi Normal guibg=NONE ctermbg=NONE
+hi Normal guibg=NONE ctermbg=NONE
 "
-fun! ColorMyPencils()
-    colorscheme ayu
-    set background=dark
+" fun! ColorMyPencils()
+"     colorscheme ayu
+"     set background=dark
 
-    let g:gruvbox_contrast_dark = 'hard'
-    if exists('+termguicolors')
-        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    endif
-    let g:gruvbox_invert_selection='0'
+"     let g:gruvbox_contrast_dark = 'hard'
+"     if exists('+termguicolors')
+"         let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"         let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"     endif
+"     let g:gruvbox_invert_selection='0'
 
-    highlight ColorColumn ctermbg=0 guibg=grey
-    highlight Normal guibg=none
-    " highlight LineNr guifg=#ff8659
-    " highlight LineNr guifg=#aed75f
-    highlight LineNr guifg=#5eacd3
-    highlight netrwDir guifg=#5eacd3
-    highlight qfFileName guifg=#aed75f
-endfun
-call ColorMyPencils()
+"     highlight ColorColumn ctermbg=0 guibg=grey
+"     highlight Normal guibg=none
+"     " highlight LineNr guifg=#ff8659
+"     " highlight LineNr guifg=#aed75f
+"     highlight LineNr guifg=#5eacd3
+"     highlight netrwDir guifg=#5eacd3
+"     highlight qfFileName guifg=#aed75f
+" endfun
+" call ColorMyPencils()
 
 let g:rainbow_active = 1
 let g:rainbow_conf = {
