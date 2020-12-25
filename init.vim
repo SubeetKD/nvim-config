@@ -38,80 +38,33 @@ endif
 " Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
 
-"*****************************************************************************
-"" Plug install packages
-"*****************************************************************************
-
-" Completion
+" Lsp stuff
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'steelsojka/completion-buffers'
-Plug 'kristijanhusak/completion-tags'
 
-" Diagnostic and lsp
-Plug 'neovim/nvim-lspconfig'
+" Linting 
+" Plug 'dense-analysis/ale'
 
-" Formatter
-Plug 'mhartington/formatter.nvim'
-
-"" --- Language specific plugins
-Plug 'tjdevries/nlua.nvim'
-
-"---- File managment
-"
-Plug 'nvim-lua/lsp-status.nvim'
+" Telescope and utility lua 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/telescope.nvim'
-" Plug 'mbbill/undotree'
+Plug 'nvim-telescope/telescope.nvim'
 
-"--------- Git Plugins ----------
-"
-Plug 'f-person/git-blame.nvim'
-
+" Snippets formatter linter syntax
 Plug 'norcalli/snippets.nvim'
-Plug 'vimwiki/vimwiki'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+Plug 'kyazdani42/nvim-web-devicons'
 
-"---- utility plugins
-" Plug 'glepnir/indent-guides.nvim'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(420) } }
+" simplet tools
 Plug 'tpope/vim-commentary'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'tpope/vim-surround'
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'mhinz/vim-startify'
-Plug 'romgrk/barbar.nvim'
-Plug 'akinsho/nvim-toggleterm.lua'
-
-"========== Syntax highlight -------
-
-" Plug 'Yggdroot/indentLine'
 Plug 'mboughaba/i3config.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/nvim-treesitter-refactor'
 
-
-Plug 'tjdevries/express_line.nvim'
-Plug 'norcalli/nvim.lua'
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'ryanoasis/vim-devicons'
-Plug 'tjdevries/colorbuddy.vim'
-Plug 'p00f/nvim-ts-rainbow'
-
-"================ Color Schemes ======================="
-
+" Colorscheme 
+Plug 'ayu-theme/ayu-vim'
+Plug 'gruvbox-community/gruvbox'
 Plug 'joshdick/onedark.vim'
-Plug 'mhartington/oceanic-next'
-Plug 'christianchiarulli/nvcode-color-schemes.vim'
-Plug 'npxbr/gruvbox.nvim'
-Plug 'Th3Whit3Wolf/onebuddy'
-Plug 'tjdevries/gruvbuddy.nvim'
-Plug 'glepnir/zephyr-nvim'
-Plug 'phanviet/vim-monokai-pro'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'flazz/vim-colorschemes'
-Plug 'npxbr/gruvbox.nvim'
+Plug 'drewtempelmeyer/palenight.vim'
 
 call plug#end()
 " }}}
@@ -120,6 +73,8 @@ call plug#end()
  
  "------------------------------ Basic Configuration ----------------------
 
+set smartindent
+set cindent
 set cursorline
 set smartcase
 set termguicolors
@@ -139,8 +94,6 @@ set foldmethod=marker
 set scrolloff=8
 set guifont=SauceCodePro\ Nerd\ Font:h18
 set backspace=indent,eol,start
-" How to set this so it won't break config
-" set list listchars=eol:¬
 
 if has("persistent_undo")
     set undodir="/home/subeet/.config/nvim/undodir"
@@ -194,21 +147,15 @@ cnoremap <C-N> <Up>
 cnoremap <C-P> <Down>
 
 
-"------------------------ Competitive coding ------
-
-" Write a better method
-" autocmd filetype cpp nnoremap <F2> :FloatermNew cf test ; read <cr>
-" autocmd filetype cpp nnoremap <F3> :FloatermNew cf submit ; read <cr>
-
-
 "------------------------ Autocmd ------------------
 
 " Delete white trailing spaces
 " autocmd BufWritePre * %s/\s\+$//e
 
 " for compiling c++
-autocmd filetype cpp nnoremap <F7> :!g++ -std=c++17 -Wshadow -Wall -g -o program -O2 -Wno-unused-result -DLOCAL "%:r.cpp" <CR>
-" autocmd filetype cpp nnoremap <F8> :FloatermNew --autoclose=0 ./program<CR>
+autocmd filetype cpp nnoremap <F5> :!g++ -std=c++17 -Wshadow -Wall -g -o program -O2 -Wno-unused-result -DLOCAL "%:r.cpp" <CR>
+autocmd filetype java nnoremap <F5> :w <bar> !javac % <CR>
+autocmd filetype python nnoremap <F5> :w <bar> !python % <CR>
 
 " Run xrdb whenever Xdefaults or Xresources are updated.
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
@@ -222,360 +169,108 @@ aug i3config_ft_detection
   au BufNewFile,BufRead ~/.config/i3/config set filetype=i3config
 aug end
 
+aug i3config_ft_detection
+  au!
+  au BufNewFile,BufRead ~/.local/src/dot_file/config/i3/config set filetype=i3config
+  au BufNewFile,BufRead ~/.config/i3/config set filetype=i3config
+aug end
+
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 " }}}
 
-" Treesitter {{{ 
-lua require('treesitter-config')
-" }}} 
-
 " Colorscheme {{{
-let g:gruvbox_contrast_dark = "hard"
-let g:gruvbox_contrast_light = "soft"
+fun! ColorMyPencils()
+    colorscheme onedark
+    set background=dark
 
-let g:nvcode_termcolors=256
+    let g:gruvbox_contrast_dark = 'hard'
+    if exists('+termguicolors')
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    endif
+    let g:gruvbox_invert_selection='0'
 
-" let ayucolor="light"  " for light version of theme
-" let ayucolor="mirage" " for mirage version of theme
-let ayucolor="dark"   " for dark version of theme
+    highlight ColorColumn ctermbg=0 guibg=grey
+    " highlight Normal guibg=none
+    " highlight LineNr guifg=#ff8659
+    " highlight LineNr guifg=#aed75f
+    highlight LineNr guifg=#5eacd3
+    highlight netrwDir guifg=#5eacd3
+    highlight qfFileName guifg=#aed75f
+endfun
+call ColorMyPencils()
+" }}}
 
-let g:moonflyCursorColor = 1
-let g:moonflyTerminalColors = 0
-let g:moonflyUnderlineMatchParen = 1
-let g:moonflyUndercurls = 0
-let g:moonflyItalics = 1
+" Treesitter and icons {{{
 
-set bg=dark
+lua require('subeet.treesitter')
 
-" colorscheme monokai_pro
-" colorscheme OceanicNext
-" colorscheme gruvbox
-" colorscheme onedark
-" colorscheme aurora
-" colorscheme palenight
-" colorscheme nvcode
-" lua require('colorbuddy').colorscheme('gruvbox')
-" lua require('colorbuddy').colorscheme('gruvbuddy')
-" lua require('colorbuddy').colorscheme('onebuddy') 
-" lua require('zephyr')
-lua require("colorbuddy").colorscheme("gruvbox")
-
-" lua require('indent_guides').default_opts = { indent_levels = 30; indent_guide_size = 0; indent_start_level = 1; indent_space_guides = true; indent_tab_guides = true; indent_pretty_guides = true; indent_soft_pattern = '\\s'; exclude_filetypes = {'help'} }
-
-lua require 'colorizer'.setup(nil, { css = true; })
-
-lua require('statusline-config')
-
-highlight Comment cterm=italic gui=italic
-
-hi LineNr ctermbg=NONE guibg=NONE
-
-hi Normal guibg=NONE ctermbg=NONE
-"
-" fun! ColorMyPencils()
-"     colorscheme ayu
-"     set background=dark
-
-"     let g:gruvbox_contrast_dark = 'hard'
-"     if exists('+termguicolors')
-"         let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"         let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-"     endif
-"     let g:gruvbox_invert_selection='0'
-
-"     highlight ColorColumn ctermbg=0 guibg=grey
-"     highlight Normal guibg=none
-"     " highlight LineNr guifg=#ff8659
-"     " highlight LineNr guifg=#aed75f
-"     highlight LineNr guifg=#5eacd3
-"     highlight netrwDir guifg=#5eacd3
-"     highlight qfFileName guifg=#aed75f
-" endfun
-" call ColorMyPencils()
-
-let g:rainbow_active = 1
-let g:rainbow_conf = {
-\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-\	'guis': [''],
-\	'cterms': [''],
-\	'operators': '_,_',
-\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-\	'separately': {
-\		'*': {},
-\		'markdown': {
-\			'parentheses_options': 'containedin=markdownCode contained',
-\		},
-\		'lisp': {
-\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-\		},
-\		'haskell': {
-\			'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/\v\{\ze[^-]/ end=/}/ fold'],
-\		},
-\		'vim': {
-\			'parentheses_options': 'containedin=vimFuncBody',
-\		},
-\		'perl': {
-\			'syn_name_prefix': 'perlBlockFoldRainbow',
-\		},
-\		'stylus': {
-\			'parentheses': ['start=/{/ end=/}/ fold contains=@colorableGroup'],
-\		},
-\		'css': 0,
-\       'vimwiki':0,
-\	}
-\}
-
-" }}} 
-
-" Git Configuration {{{
-let g:gitblame_enabled  = 0             " disable by default
-let g:gitblame_message_template = '<summary> • <date> • <author>'
-
-lua require('git-config')
-" }}} 
-
-" Starttify telescope and Formatter {{{ 
-
-" Automatic save sessions
-let g:startify_session_persistence = 1
-
-let g:startify_lists = [
-      \ { 'type': 'sessions',  'header': ['   Sessions']       },
-      \ { 'type': 'files',     'header': ['   MRU']            },
-      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-      \ { 'type': 'commands',  'header': ['   Commands']       },
-      \ ]
-
-" Formatter.nvim
-lua require('custom-format')
-autocmd BufWritePost *.cpp,*.js,*.lua silent! Format
-
-" Telescope.nvim
-
-lua require('my_finder')
-nnoremap <leader>tff <cmd>lua require('my_finder').find_files()<cr>
-nnoremap <leader>tdf <cmd>lua require('my_finder').edit_dotfile()<cr>
-nnoremap <leader>tfb <cmd>lua require('my_finder').buffer()<cr>
-nnoremap <leader>trg <cmd>lua require('my_finder').live_grep()<cr>
-nnoremap <leader>tbb <cmd>lua require('telescope.builtin').builtin()<cr>
-
-" }}} 
-
-" Completion snippets and diagnostic {{{ 
+" }}}
+ 
+" LSP {{{
 " snippets.nvim
-
+lua require('subeet.snippets.index')
 inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>
 inoremap <c-j> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
-
-" diagnostic is also here
-lua require('completion_config')
-
-" Mapings for easy navigations
-nnoremap ]e <cmd> lua vim.lsp.diagnostic.goto_prev() <cr>
-nnoremap [e <cmd> lua vim.lsp.diagnostic.goto_next() <cr>
-
-""------------- completion-nvim
-
-" Some options i don't understand
-
-let g:completion_auto_change_source = 1
-
-let g:completion_enable_auto_popup = 1
-
-let g:completion_matching_strategy_list = ['exact','substring','fuzzy']
-
-let g:completion_enable_snippet = 'snippets.nvim'
-
-" let g:completion_chain_complete_list = [
-"             \  {'complete_items': ['path'],'triggered_only' : ['/']},
-"             \  {'complete_items': ['lsp']},
-"             \  {'complete_items': ['tags']},
-"             \  {'complete_items': ['snippet','buffers']},
-"             \  {'mode': '<c-p>'},
-"             \  {'mode': '<c-n>'}
-"             \]
-
-let g:completion_enable_auto_hover = 0
-
-let g:Completion_matching_smart_case = 0
-
-autocmd BufEnter * lua require'completion'.on_attach()
+ 
 
 " Set completeopt to have a better completion experience
-set completeopt=menuone,noselect
+set completeopt=menuone,noinsert,noselect
 
 " Avoid showing message extra message when using completion
 set shortmess+=c
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
+imap <tab> <Plug>(completion_smart_tab)
+imap <s-tab> <Plug>(completion_smart_s_tab)
 
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ completion#trigger_completion()
+let g:completion_enable_snippet = 'snippets.nvim'
+ 
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+ 
+let g:completion_matching_smart_case = 1
+ 
+let g:completion_trigger_character = ['.','::']
+ 
+let g:completion_trigger_on_delete = 1
+ 
+" let g:completion_trigger_character = 3
 
+autocmd BufEnter * lua require'completion'.on_attach()
 
- let g:completion_confirm_key = ""
- imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
-                  \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+lua require('subeet.lsp')
 
-"-------- Nvim - lsp
+" Ale setup
+" let g:ale_disable_lsp = 1
 
-lua require('nvim-lspconfig')
+" let g:ale_linters = {
+"             \ 'javascript' : ['eslint'],
+"             \ 'cpp' : ['cpplint'],
+"             \ 'python' : ['pylint'],
+"             \}
 
-"------------- Mapings for nvim-lsp
+" let g:ale_linters_explicit = 1
 
-nnoremap <leader>vd :lua vim.lsp.buf.definition()<CR>
-nnoremap <leader>vi :lua vim.lsp.buf.implementation()<CR>
-nnoremap <leader>vsh :lua vim.lsp.buf.signature_help()<CR>
-nnoremap <leader>vrr :lua vim.lsp.buf.references()<CR>
-" nnoremap <leader>vrn :lua require('nvim-lspconfig').MyLspRename() <CR>
-nnoremap <leader>vh :lua vim.lsp.buf.hover()<CR>
-" nnoremap <leader>vrn :lua vim.lsp.buf.rename()<cr>
-nnoremap <leader>vrn :lua MyLspRename() <cr>
-nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
+" let g:ale_sign_error = '>>'
+" let g:ale_sign_warning = '--'
 
-" --- nvim web devicons
-lua require'nvim-web-devicons'.setup()
+" nmap <silent> [e <Plug>(ale_previous_wrap)
+" nmap <silent> ]e <Plug>(ale_next_wrap)
 
-" }}} 
+" let g:ale_completion_enabled = 0
 
-" Firenvim Configuration {{{ 
-if exists('g:started_by_firenvim')
-  set laststatus=0
-else
-  set laststatus=2
-endif
-au BufEnter github.com_*.txt set filetype=markdown
-au BufEnter *interviewbit.com_*.txt set filetype=cpp
-
-let g:firenvim_config = { 
-    \ 'globalSettings': {
-        \ 'alt': 'all',
-    \  },
-    \ 'localSettings': {
-        \ '.*': {
-            \ 'cmdline': 'neovim',
-            \ 'priority': 0,
-            \ 'selector': 'textarea',
-            \ 'takeover': 'always',
-        \ },
-    \ }
-\ }
-
-let fc = g:firenvim_config['localSettings']
-let fc['https?://youtube.com/'] = { 'takeover': 'never', 'priority': 1 }
+" let g:ale_fix_on_save = 1
+" let g:ale_fixers = {
+" \   'javascript': ['prettier','eslint'],
+" \   'python' : [ 'black' ],
+" \   'cpp' : [ 'clang-format' ],
+" \}
 " }}}
 
-" Nvim lua tree {{{
-let g:lua_tree_side = 'left'  "left by default
-let g:lua_tree_width = 40 "30 by default
-let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
-let g:lua_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
-let g:lua_tree_auto_close = 0 "0 by default, closes the tree when it's the last window
-let g:lua_tree_quit_on_open = 0 "0 by default, closes the tree when you open a file
-let g:lua_tree_follow = 0 "0 by default, this option allows the cursor to be updated when entering a buffer
-" let g:lua_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
-" let g:lua_tree_hide_dotfiles = 1 "0 by default, this option hides files and folders starting with a dot `.`
-" let g:lua_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
-" let g:lua_tree_root_folder_modifier = ':~' "This is the default. See :help filename-modifiers for more options
-" let g:lua_tree_tab_open = 1 "0 by default, will open the tree when entering a new tab and the tree was previously open
-" let g:lua_tree_allow_resize = 1 "0 by default, will not resize the tree when opening a file
-let g:lua_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 0,
-    \ 'files': 0,
-    \ }
-"If 0, do not show the icons for one of 'git' 'folder' and 'files'
-"1 by default, notice that if 'files' is 1, it will only display
-"if nvim-web-devicons is installed and on your runtimepath
-
-" You can edit keybindings be defining this variable
-" You don't have to define all keys.
-" NOTE: the 'edit' key will wrap/unwrap a folder and open a file
-let g:lua_tree_bindings = {
-    \ 'edit':            ['<CR>', 'o'],
-    \ 'edit_vsplit':     '<C-v>',
-    \ 'edit_split':      '<C-x>',
-    \ 'edit_tab':        '<C-t>',
-    \ 'toggle_ignored':  'I',
-    \ 'toggle_dotfiles': 'H',
-    \ 'refresh':         'R',
-    \ 'preview':         '<Tab>',
-    \ 'cd':              '<C-]>',
-    \ 'create':          'a',
-    \ 'remove':          'd',
-    \ 'rename':          'r',
-    \ 'cut':             'x',
-    \ 'copy':            'c',
-    \ 'paste':           'p',
-    \ 'prev_git_item':   '[c',
-    \ 'next_git_item':   ']c',
-    \ }
-
-" Disable default mappings by plugin
-" Bindings are enable by default, disabled on any non-zero value
-" let lua_tree_disable_keybindings=1
-
-" default will show icon by default if no icon is provided
-" default shows no icon by default
-let g:lua_tree_icons = {
-    \ 'default': '',
-    \ 'symlink': '',
-    \ 'git': {
-    \   'unstaged': "✗",
-    \   'staged': "✓",
-    \   'unmerged': "",
-    \   'renamed': "➜",
-    \   'untracked': "★"
-    \   },
-    \ 'folder': {
-    \   'default': "",
-    \   'open': ""
-    \   }
-    \ }
-
-nnoremap <C-n> :LuaTreeToggle<CR>
-nnoremap <leader>r :LuaTreeRefresh<CR>
-nnoremap <leader>n :LuaTreeFindFile<CR>
-" LuaTreeOpen and LuaTreeClose are also available if you need them
-
-" a list of groups can be found at `:help lua_tree_highlight`
-highlight LuaTreeFolderIcon guibg=blue
-" }}}
-
-" BarBar.nvim {{{
-" Magic buffer-picking mode
-nnoremap <silent> <C-s> :BufferPick<CR>
-" Sort automatically by...
-nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
-nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
-" Move to previous/next
-nnoremap <silent>   <leader>, :BufferPrevious<CR>
-nnoremap <silent>   <leader>. :BufferNext<CR>
-" Re-order to previous/next
-nnoremap <silent>    <leader>< :BufferMovePrevious<CR>
-nnoremap <silent>    <leader>> :BufferMoveNext<CR>
-" Goto buffer in position...
-nnoremap <silent>    <leader>1 :BufferGoto 1<CR>
-nnoremap <silent>    <leader>2 :BufferGoto 2<CR>
-nnoremap <silent>    <leader>3 :BufferGoto 3<CR>
-nnoremap <silent>    <leader>4 :BufferGoto 4<CR>
-nnoremap <silent>    <leader>5 :BufferGoto 5<CR>
-nnoremap <silent>    <leader>6 :BufferGoto 6<CR>
-nnoremap <silent>    <leader>7 :BufferGoto 7<CR>
-nnoremap <silent>    <leader>8 :BufferGoto 8<CR>
-nnoremap <silent>    <leader>9 :BufferLast<CR>
-" Close buffer
-nnoremap <silent>    <A-c> :BufferClose<CR>
-" }}}
-
-" Terminal Integration {{{
-lua require('terminal-config')
-nnoremap <F8> <cmd>ToggleTerm<cr>
+" Telescope and utility {{{
+lua require('subeet.telescope')
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " }}}
