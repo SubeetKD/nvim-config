@@ -1,6 +1,7 @@
 local M = {}
 
-M.karo = [[
+M.karo =
+    [[
 import java.io.*;
 import java.util.*;
 
@@ -65,6 +66,25 @@ int test = fs.nextInt();
 while (test > 0) {
     $0
     test--;
+}
+]]
+
+-- Java leetcode snippet
+M.leetcode =
+    [[
+import java.io.*;
+import java.util.*;
+
+public class $1 {
+
+	public static void main(String[] args) {
+		FastScanner fs=new FastScanner();
+		PrintWriter out=new PrintWriter(System.out);
+		out.close();
+	}
+
+    $0
+
 }
 ]]
 

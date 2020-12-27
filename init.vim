@@ -28,8 +28,6 @@ if !filereadable(vimplug_exists)
   silent exec "!"curl_exists" -fLo " . shellescape(vimplug_exists) . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
   let g:not_finish_vimplug = "yes"
 
-
-
   autocmd VimEnter * PlugInstall
 endif
 " }}}
@@ -56,15 +54,22 @@ Plug 'norcalli/snippets.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
 Plug 'kyazdani42/nvim-web-devicons'
 
-" simplet tools
+" Language Specific
+Plug 'plasticboy/vim-markdown'
+
+" simple tools
 Plug 'tpope/vim-commentary'
 Plug 'mboughaba/i3config.vim'
+" Having some issue later check the youtube video about the vimwiki
+Plug 'vimwiki/vimwiki'
+Plug 'tbabej/taskwiki'
 
 " Colorscheme 
 Plug 'ayu-theme/ayu-vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ghifarit53/tokyonight-vim'
 
 call plug#end()
 " }}}
@@ -179,9 +184,17 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 " }}}
 
+" vimwiki {{{
+
+
+" }}}
+
 " Colorscheme {{{
+let g:tokyonight_style = 'night' " storm or night
+let g:tokyonight_enable_italic = 1
+
 fun! ColorMyPencils()
-    colorscheme onedark
+    colorscheme ayu
     set background=dark
 
     let g:gruvbox_contrast_dark = 'hard'
@@ -192,7 +205,7 @@ fun! ColorMyPencils()
     let g:gruvbox_invert_selection='0'
 
     highlight ColorColumn ctermbg=0 guibg=grey
-    " highlight Normal guibg=none
+    highlight Normal guibg=none
     " highlight LineNr guifg=#ff8659
     " highlight LineNr guifg=#aed75f
     highlight LineNr guifg=#5eacd3
@@ -240,32 +253,9 @@ autocmd BufEnter * lua require'completion'.on_attach()
 
 lua require('subeet.lsp')
 
-" Ale setup
-" let g:ale_disable_lsp = 1
+" Format code on save
+autocmd BufWritePost *.java,*.cpp,*.py,*.lua lua vim.lsp.buf.formatting()
 
-" let g:ale_linters = {
-"             \ 'javascript' : ['eslint'],
-"             \ 'cpp' : ['cpplint'],
-"             \ 'python' : ['pylint'],
-"             \}
-
-" let g:ale_linters_explicit = 1
-
-" let g:ale_sign_error = '>>'
-" let g:ale_sign_warning = '--'
-
-" nmap <silent> [e <Plug>(ale_previous_wrap)
-" nmap <silent> ]e <Plug>(ale_next_wrap)
-
-" let g:ale_completion_enabled = 0
-
-" let g:ale_fix_on_save = 1
-" let g:ale_fixers = {
-" \   'javascript': ['prettier','eslint'],
-" \   'python' : [ 'black' ],
-" \   'cpp' : [ 'clang-format' ],
-" \}
-" }}}
 
 " Telescope and utility {{{
 lua require('subeet.telescope')
