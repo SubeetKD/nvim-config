@@ -1,1 +1,0 @@
-/home/subeet/.local/src/nvim-config/init.vim
