@@ -21,7 +21,7 @@ local custom_attach = function(client)
     print("'" .. client.name .. "' language server attached")
     completion.on_attach(
         {
-            matching_strategy_list = {"exact", "fuzzy"},
+            matching_strategy_list = {"exact", "substring", "fuzzy"},
             chain_complete_list = chain_complete_list
         }
     )
@@ -38,11 +38,16 @@ nvim_lsp.jdtls.setup(
 nvim_lsp.clangd.setup(
     {
         on_attach = function(client)
-            client.resolved_capabilities.document_formatting = false
+            -- renaming variable doesn't work may be due to this?
+            -- client.resolved_capabilities.document_formatting = false
             custom_attach(client)
         end
     }
 )
+
+nvim_lsp.tsserver.setup {
+    on_attach = custom_attach
+}
 
 -- Vim language server
 nvim_lsp.vimls.setup(
@@ -99,16 +104,49 @@ nvim_lsp.html.setup(
 
 local luafmt = require("subeet.formatters.lua")
 local cppfmt = require("subeet.formatters.cpp")
+local prettier = require("subeet.formatters.prettier")
+local eslint = require("subeet.formatters.prettier")
 
 -- guy talking about formating in neovim subreddit
+-- nvim_lsp.efm.setup {
+--     on_attach = custom_attach,
+--     init_options = {documentFormatting = true},
+--     settings = {
+--         rootMarkers = {".git/"},
+--         languages = {
+--             lua = {luafmt},
+--             cpp = {cppfmt},
+--             html = {prettier},
+--             typescript = {prettier, eslint},
+--             javascript = {prettier, eslint},
+--             typescriptreact = {prettier, eslint},
+--             javascriptreact = {prettier, eslint},
+--             yaml = {prettier},
+--             json = {prettier},
+--             scss = {prettier},
+--             css = {prettier},
+--             markdown = {prettier}
+--         }
+--     }
+-- }
+
 nvim_lsp.efm.setup {
     on_attach = custom_attach,
     init_options = {documentFormatting = true},
-    settings = {
-        rootMarkers = {".git/"},
-        languages = {
-            lua = {luafmt},
-            cpp = {cppfmt}
+    default_config = {
+        cmd = {
+            "efm-langserver",
+            "-c",
+            [["$HOME/.config/efm-langserver/config.yaml"]]
         }
+    },
+    filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescript.tsx",
+        "typescriptreact",
+        "lua"
     }
 }
