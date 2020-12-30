@@ -57,7 +57,7 @@ nvim_lsp.vimls.setup(
 )
 
 -- Vim language server
-nvim_lsp.pyls.setup(
+nvim_lsp.pyls_ms.setup(
     {
         on_attach = custom_attach
     }
@@ -98,6 +98,10 @@ nvim_lsp.html.setup(
         on_attach = custom_attach
     }
 )
+
+nvim_lsp.yamlls.setup {
+    on_attach = custom_attach
+}
 
 -- having trouble to set up efm langserver so using diagnostic-langserver
 -- for the moment.
@@ -147,6 +151,7 @@ nvim_lsp.efm.setup {
         "typescript",
         "typescript.tsx",
         "typescriptreact",
-        "lua"
+        "lua",
+        "cpp"
     }
 }

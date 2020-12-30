@@ -227,10 +227,10 @@ let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_invert_selection='0'
 
 fun! ColorMyPencils()
-    colorscheme onedark
+    " colorscheme onedark
     " colorscheme ayu
     " colorscheme tokyonight
-    " colorscheme gruvbox
+    colorscheme gruvbox
     " lua require('colorbuddy').colorscheme('gruvbuddy')
     set background=dark
 
@@ -240,7 +240,7 @@ fun! ColorMyPencils()
     endif
 
     highlight ColorColumn ctermbg=0 guibg=grey
-    " highlight Normal guibg=none
+    highlight Normal guibg=none
     " highlight LineNr guifg=#ff8659
     " highlight LineNr guifg=#aed75f
     highlight LineNr guifg=#5eacd3
@@ -256,7 +256,7 @@ call ColorMyPencils()
 lua require('subeet.treesitter')
 
 " }}}
- 
+
 " LSP {{{
 " snippets.nvim
 lua require('subeet.snippets.index')
@@ -283,7 +283,6 @@ let g:completion_trigger_character = ['.','::']
 let g:completion_trigger_on_delete = 1
  
 " let g:completion_trigger_character = 3
-
 autocmd BufEnter * lua require'completion'.on_attach()
 
 lua require('subeet.lsp')
@@ -309,11 +308,13 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " }}}
 
+" }}}
+
 " File Tree {{{
 let g:nvim_tree_side = 'right' " 'left' left by default
 let g:nvim_tree_width = 40 "30 by default
 let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
-let g:nvim_tree_auto_open = 1 "0 by default, opens the tree when typing `vim $DIR` or `vim`
+let g:nvim_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
 let g:nvim_tree_auto_close = 1 "0 by default, closes the tree when it's the last window
 let g:nvim_tree_quit_on_open = 1 "0 by default, closes the tree when you open a file
 let g:nvim_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer

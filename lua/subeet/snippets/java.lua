@@ -19,7 +19,7 @@ public class $1 {
 		Random r=new Random();
 		int n=a.length;
 		for (int i=0; i<n; i++) {
-			int oi=r.nextInt(i);
+			int oi=r.nextInt(n);
 			int temp=a[i];
 			a[i]=a[oi];
 			a[oi]=temp;
