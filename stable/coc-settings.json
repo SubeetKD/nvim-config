@@ -1,0 +1,29 @@
+{
+    "coc.preferences.colorSupport": true,
+
+    "python.formatting.provider": "black",
+
+    "python.analysis.typeCheckingMode": "off",
+
+    "python.linting.enabled": true,
+
+    "json.format.enable": true,
+
+    "clangd.semanticHighlighting": true,
+    "clangd.arguments": ["-fallback-style=WebKit"],
+
+    "coc.preferences.formatOnSaveFiletypes": ["cpp","python","javascript"],
+
+    "languageserver": {
+        "efm": {
+            "command": "efm-langserver",
+            "args": [],
+            "filetypes": [
+                "vim",
+                "eruby",
+                "markdown",
+                "yaml"
+            ]
+        }
+    }
+}

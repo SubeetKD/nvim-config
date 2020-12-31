@@ -57,7 +57,7 @@ nvim_lsp.vimls.setup(
 )
 
 -- Vim language server
-nvim_lsp.pyls_ms.setup(
+nvim_lsp.pyright.setup(
     {
         on_attach = custom_attach
     }
