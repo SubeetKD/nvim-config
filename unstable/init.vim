@@ -48,11 +48,11 @@ Plug 'steelsojka/completion-buffers'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'justinmk/vim-sneak'
 
 " Snippets formatter linter syntax
 Plug 'norcalli/snippets.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+Plug 'alvan/vim-closetag'
 
 " File Manager and icons
 Plug 'kyazdani42/nvim-web-devicons'
@@ -63,7 +63,6 @@ Plug 'tpope/vim-commentary'
 Plug 'mboughaba/i3config.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'glepnir/indent-guides.nvim'
-Plug 'kevinhwang91/nvim-hlslens'
 Plug 'romainl/vim-cool'
 
 " Colorscheme 
@@ -74,6 +73,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'tjdevries/colorbuddy.vim'
 Plug 'tjdevries/gruvbuddy.nvim'
+Plug 'tomasr/molokai'
 
 call plug#end()
 " }}}
@@ -98,7 +98,7 @@ set splitbelow
 set winblend=0
 set pumblend=25                 " set transparency in pop-up menu
 set foldmethod=marker
-set scrolloff=8
+set scrolloff=3
 set guifont=SauceCodePro\ Nerd\ Font:h18
 set backspace=indent,eol,start
 
@@ -194,21 +194,6 @@ aug end
 
 " }}}
 
-" hlsearch lens {{{
-let g:sneak#label = 1
-noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR>
-            \<Cmd>lua require('hlslens').start()<CR>
-noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR>
-            \<Cmd>lua require('hlslens').start()<CR>
-noremap * *<Cmd>lua require('hlslens').start()<CR>
-noremap # #<Cmd>lua require('hlslens').start()<CR>
-noremap g* g*<Cmd>lua require('hlslens').start()<CR>
-noremap g# g#<Cmd>lua require('hlslens').start()<CR>
-
-" use : instead of <Cmd>
-nnoremap <silent> <leader>l :nohlsearch<CR>
-" }}}
-
 " vimwiki {{{
 
 let g:vimwiki_list = [{'path':'~/vimwiki','syntax':'markdown','ext':'.md',
@@ -225,12 +210,15 @@ let g:tokyonight_style = 'night' " storm or night
 let g:tokyonight_enable_italic = 1
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_invert_selection='0'
+let g:molokair_original = 1
+let g:rehash256 = 1
 
 fun! ColorMyPencils()
+    colorscheme molokai
     " colorscheme onedark
     " colorscheme ayu
     " colorscheme tokyonight
-    colorscheme gruvbox
+    " colorscheme gruvbox
     " lua require('colorbuddy').colorscheme('gruvbuddy')
     set background=dark
 
@@ -240,7 +228,7 @@ fun! ColorMyPencils()
     endif
 
     highlight ColorColumn ctermbg=0 guibg=grey
-    highlight Normal guibg=none
+    " highlight Normal guibg=none
     " highlight LineNr guifg=#ff8659
     " highlight LineNr guifg=#aed75f
     highlight LineNr guifg=#5eacd3
@@ -255,6 +243,49 @@ call ColorMyPencils()
 " lua require('subeet.indentGuides')
 lua require('subeet.treesitter')
 
+" }}}
+
+" vim-closetag {{{
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+"
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
 " }}}
 
 " LSP {{{
@@ -298,7 +329,7 @@ nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>vsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
 
 " Format code on save
-autocmd BufWritePost *.html,*.java,*.cpp,*.py,*.lua lua vim.lsp.buf.formatting()
+" autocmd BufWritePost *.html,*.java,*.cpp,*.py,*.lua lua vim.lsp.buf.formatting()
 
 " Telescope and utility {{{
 lua require('subeet.telescope')

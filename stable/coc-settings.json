@@ -1,29 +1,9 @@
 {
-    "coc.preferences.colorSupport": true,
+    "highlight.document.enable": true,
 
-    "python.formatting.provider": "black",
+    "coc.preferences.formatOnSaveFiletypes": ["java","cpp"],
 
-    "python.analysis.typeCheckingMode": "off",
+    "java.format.enabled": true,
 
-    "python.linting.enabled": true,
-
-    "json.format.enable": true,
-
-    "clangd.semanticHighlighting": true,
-    "clangd.arguments": ["-fallback-style=WebKit"],
-
-    "coc.preferences.formatOnSaveFiletypes": ["cpp","python","javascript"],
-
-    "languageserver": {
-        "efm": {
-            "command": "efm-langserver",
-            "args": [],
-            "filetypes": [
-                "vim",
-                "eruby",
-                "markdown",
-                "yaml"
-            ]
-        }
-    }
+    "clangd.arguments": ["-fallback-style=Webkit"]
 }

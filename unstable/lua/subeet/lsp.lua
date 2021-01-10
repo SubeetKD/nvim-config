@@ -37,9 +37,10 @@ nvim_lsp.jdtls.setup(
 
 nvim_lsp.clangd.setup(
     {
+        -- cmd = {"clangd","--background-index","-fallback-style=WebKit"},
         on_attach = function(client)
             -- renaming variable doesn't work may be due to this?
-            -- client.resolved_capabilities.document_formatting = false
+            client.resolved_capabilities.document_formatting = false
             custom_attach(client)
         end
     }
