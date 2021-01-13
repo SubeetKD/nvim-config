@@ -1,25 +1,8 @@
-local myTreeSitter = require('nvim-treesitter.configs')
-local myIcons = require('nvim-web-devicons')
+local treesitter = require('nvim-treesitter.configs')
 
-myTreeSitter.setup {
+treesitter.setup {
     ensure_installed = "all",
     highlight = {
-        enable = true,
-    },
-    incremental_selection = {
-        enable = true,
-keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    },
-    },
-    indent = {
-        enable = false,
+        enable = true
     }
-}
-
-myIcons.setup {
-    default = true;
 }

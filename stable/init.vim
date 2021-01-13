@@ -107,7 +107,7 @@ let g:oceanic_next_terminal_italic = 1
 
 set background=dark
 
-colorscheme OceanicNext
+colorscheme gruvbox
 " lua require('colorbuddy').colorscheme('gruvbuddy')
 set t_Co=256
 if exists('+termguicolors')
@@ -171,7 +171,7 @@ let g:vimwiki_ext2syntax = {'.md':'markdown','.markdown':'markdown','.mdown':'ma
 " Status Line
 lua << EOF
 local lualine = require('lualine')
-    lualine.theme = 'onedark'
+    lualine.theme = 'gruvbox'
     lualine.separator = '|'
     lualine.sections = {
       lualine_a = { 'mode' },
@@ -208,6 +208,7 @@ endif
 let g:coc_global_extensions = [
             \'coc-marketplace', 
             \'coc-snippets',
+            \'coc-explorer',
             \'coc-pairs',
             \'coc-json', 
             \'coc-vimlsp', 
@@ -325,6 +326,56 @@ nnoremap <silent><nowait> <leader>cck  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <leader>ccp  :<C-u>CocListResume<CR>
 nnoremap <silent> <leader>ccm  :<C-u>CocList marketplace<CR>
 
+" COC explorer
+let g:coc_explorer_global_presets = {
+\   '.vim': {
+\     'root-uri': '~/.config/nvim',
+\   },
+\   'cocConfig': {
+\      'root-uri': '~/.config/coc',
+\   },
+\   'tab': {
+\     'position': 'tab',
+\     'quit-on-open': v:true,
+\   },
+\   'floating': {
+\     'position': 'floating',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingTop': {
+\     'position': 'floating',
+\     'floating-position': 'center-top',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingLeftside': {
+\     'position': 'floating',
+\     'floating-position': 'left-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingRightside': {
+\     'position': 'floating',
+\     'floating-position': 'right-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'simplify': {
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   },
+\   'buffer': {
+\     'sources': [{'name': 'buffer', 'expand': v:true}]
+\   },
+\ }
+
+" Use preset argument to open it
+nmap <space>ed :CocCommand explorer --preset .vim<CR>
+nmap <space>ef :CocCommand explorer --preset floating<CR>
+nmap <space>ec :CocCommand explorer --preset cocConfig<CR>
+nmap <space>eb :CocCommand explorer --preset buffer<CR>
+
+" List all presets
+nmap <space>el :CocList explPresets
+" GOYO Fun
 function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
     silent !tmux set status off
