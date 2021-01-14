@@ -1,12 +1,21 @@
 call plug#begin('~/.config/nvim/plugged')
 
-" lsp and autocomplete
+" lsp and autocomplete 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+Plug 'anott03/nvim-lspinstall'
 
 " snippets and commenter
 Plug 'norcalli/snippets.nvim'
 Plug 'preservim/nerdcommenter'
+
+" Telescope.nvim
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+" Git config
+Plug 'f-person/git-blame.nvim'
 
 " note and language based tool
 Plug 'alvan/vim-closetag'
@@ -15,6 +24,7 @@ Plug 'vimwiki/vimwiki'
 " Visual improvements
 Plug 'Yggdroot/indentLine'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+Plug 'norcalli/nvim-colorizer.lua'
 
 " Distraction free writing.
 Plug 'junegunn/goyo.vim'
@@ -33,6 +43,7 @@ Plug 'tjdevries/colorbuddy.vim'
 Plug 'tjdevries/gruvbuddy.nvim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'mhartington/oceanic-next'
+Plug 'chriskempson/base16-vim'
 
 call plug#end()
 
@@ -110,14 +121,15 @@ let g:rehash256 = 1
 let g:onedark_termcolors = 256
 let g:onedark_terminal_italics = 1
 let g:ayucolor = "dark"
-let g:gruvbox_contrast_dark = "medium"
+let g:gruvbox_contrast_dark = "hard"
 let g:gruvbox_invert_selection='0'
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1
+let base16colorspace=256
 
 set background=dark
 
-colorscheme ayu
+colorscheme gruvbox
 " lua require('colorbuddy').colorscheme('gruvbuddy')
 set t_Co=256
 if exists('+termguicolors')
@@ -126,7 +138,7 @@ if exists('+termguicolors')
 endif
 
 highlight ColorColumn ctermbg=0 guibg=grey
-highlight Normal guibg=none
+" highlight Normal guibg=none
 " highlight LineNr guifg=#ff8659
 " highlight LineNr guifg=#aed75f
 highlight LineNr guifg=#5eacd3
@@ -134,6 +146,8 @@ highlight netrwDir guifg=#5eacd3
 highlight qfFileName guifg=#aed75f
 highlight StatusLine guibg=none
 highlight StatusLineNC guibg=none
+
+lua require('subeet.colorizer')
 
 let g:indentLine_char = '|'
 
@@ -188,7 +202,6 @@ let g:vimwiki_ext2syntax = {'.md':'markdown','.markdown':'markdown','.mdown':'ma
 
 lua require('subeet.statusline')
 
-
 " GOYO Fun
 function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
@@ -216,3 +229,12 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+" Telescope.nvim Using lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+" Git config
+let g:gitblame_message_template = '<summary> • <date> • <author>'
