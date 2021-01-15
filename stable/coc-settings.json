@@ -1,9 +1,0 @@
-{
-    "highlight.document.enable": true,
-
-    "coc.preferences.formatOnSaveFiletypes": ["java","cpp"],
-
-    "java.format.enabled": true,
-
-    "clangd.arguments": ["-fallback-style=Webkit"]
-}

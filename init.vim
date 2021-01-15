@@ -14,8 +14,11 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
+Plug 'windwp/nvim-autopairs'
+
 " Git config
 Plug 'f-person/git-blame.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 
 " note and language based tool
 Plug 'alvan/vim-closetag'
@@ -47,12 +50,10 @@ Plug 'chriskempson/base16-vim'
 
 call plug#end()
 
-set rnu nu
 set noswapfile
 set nobackup
 set termguicolors
 set nowrap
-set cursorline
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -99,7 +100,6 @@ autocmd filetype java map <F9> :set makeprg=javac\ %<CR>:make<CR>
 autocmd filetype java map <F10> :!echo %\|awk -F. '{print $1}'\|xargs java<CR>
 autocmd filetype java map <F11> :set makeprg=javac\ #<CR>:make<CR>
 autocmd filetype java map <F12> :!echo #\|awk -F. '{print $1}'\|xargs java<CR>
-
 autocmd filetype python map <F9> :set makeprg=python\ %<cr>:make<cr>
 
 " Run xrdb whenever Xdefaults or Xresources are updated.
@@ -129,7 +129,7 @@ let base16colorspace=256
 
 set background=dark
 
-colorscheme gruvbox
+colorscheme OceanicNext
 " lua require('colorbuddy').colorscheme('gruvbuddy')
 set t_Co=256
 if exists('+termguicolors')
@@ -139,7 +139,7 @@ endif
 
 highlight ColorColumn ctermbg=0 guibg=grey
 " highlight Normal guibg=none
-" highlight LineNr guifg=#ff8659
+" highlight LineNr guifg=#ff8542
 " highlight LineNr guifg=#aed75f
 highlight LineNr guifg=#5eacd3
 highlight netrwDir guifg=#5eacd3
@@ -164,12 +164,17 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 let g:completion_enable_snippet = 'snippets.nvim'
 let g:completion_enable_auto_hover = 1
-let g:completion_enable_auto_paren = 1
+let g:completion_enable_auto_paren = 0
 let g:completion_matching_smart_case = 1
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:completion_trigger_keyword_length = 2
 let g:completion_trigger_on_delete = 1
 let g:completion_timer_cycle = 200
+let g:completion_chain_complete_list = [
+    \{'complete_items': ['lsp', 'snippet', 'path']},
+    \{'mode': '<c-p>'},
+    \{'mode': '<c-n>'}
+\]
 autocmd BufEnter * lua require'completion'.on_attach()
 nnoremap <leader>lll <cmd>e ~/.local/share/nvim/lsp.log <cr>
 
@@ -237,4 +242,9 @@ nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 " Git config
-let g:gitblame_message_template = '<summary> • <date> • <author>'
+let g:gitblame_message_template = '      <summary> • <date> • <author>'
+
+lua require('subeet.gitsigns')
+
+" using default config
+lua require('nvim-autopairs').setup()

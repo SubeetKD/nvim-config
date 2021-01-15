@@ -135,6 +135,7 @@ nvim_lsp.efm.setup{
     filetypes = {
         "python",
         "lua",
+        "cpp",
         "javascript",
         "javascriptreact",
         "javascript.jsx",
@@ -144,3 +145,19 @@ nvim_lsp.efm.setup{
     },
     on_attach = on_attach
 }
+
+
+-- Diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+    vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    {
+        virtual_text = {
+            spacing = 10,
+            prefix = " "
+        },
+        signs = false,
+        update_in_insert = false,
+        underline = true
+    }
+)
