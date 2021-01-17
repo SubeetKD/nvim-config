@@ -1,23 +1,22 @@
 local nvim_lsp = require('lspconfig')
+local completion = require('completion')
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 capabilities.textDocument.completion.completionItem.snippetSupport = true;
 
 vim.lsp.set_log_level("debug")
 
--- Formatting (https://www.reddit.com/r/neovim/comments/jvisg5/lets_talk_formatting_again/)
-vim.lsp.handlers["textDocument/formatting"] = function(err, _, result, _, bufnr)
-    if err ~= nil or result == nil then
-        return
-    end
-    if not vim.api.nvim_buf_get_option(bufnr, "modified") then
-        local view = vim.fn.winsaveview()
-        vim.lsp.util.apply_text_edits(result, bufnr)
-        vim.fn.winrestview(view)
-        if bufnr == vim.api.nvim_get_current_buf() then
-            vim.api.nvim_command("noautocmd :update")
-        end
-    end
-end
+local chain_complete_list = {
+  default = {
+    {complete_items = {'lsp', 'snippet'}},
+    {complete_items = {'path'}, triggered_only = {'/'}},
+    {complete_items = {'buffers'}},
+  },
+  string = {
+    {complete_items = {'path'}, triggered_only = {'/'}},
+  },
+  comment = {},
+}
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -69,56 +68,70 @@ local on_attach = function(client, bufnr)
         vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
         vim.api.nvim_command [[augroup END]]
     end
+
+    completion.on_attach({
+        matching_strategy_list = {'exact', 'substring', 'fuzzy'},
+        chain_complete_list = chain_complete_list,
+    })
 end
 
 -- Use a loop to conveniently both setup defined servers 
 -- and map buffer local keybindings when the language server attaches
-local servers = { "pyls","vimls","tsserver" }
+local servers = { "pyls","html", "vimls","tsserver" }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
+  nvim_lsp[lsp].setup {
+      capabilities = capabilities;
+      on_attach = on_attach,
+  }
 end
-
--- requires snippet support to provide completion
-nvim_lsp.html.setup {
-    capabilities = capabilities;
-    on_attach = on_attach,
-}
 
 nvim_lsp.clangd.setup {
     capabilities = capabilities;
     cmd = {"clangd", "--background-index", "-fallback-style=WebKit"},
     on_attach = function(client)
-        client.resolved_capabilities.document_formatting = true
+        client.resolved_capabilities.document_formatting = false
         on_attach(client)
     end
 }
 
 -- does not require snippet support, but provides some snippet completion candidates out of the box
-local sumneko_root_path = vim.fn.getenv("HOME").."/.local/bin/sumneko_lua"
-nvim_lsp.sumneko_lua.setup {
-  cmd = { vim.fn.getenv("HOME").."/.local/src/lua-language-server/bin/Linux".."/lua-language-server", "-E", sumneko_root_path .. "/main.lua"};
-  on_attach = on_attach,
-  capabilities = capabilities;
+local system_name
+if vim.fn.has("mac") == 1 then
+  system_name = "macOS"
+elseif vim.fn.has("unix") == 1 then
+  system_name = "Linux"
+elseif vim.fn.has('win32') == 1 then
+  system_name = "Windows"
+else
+  print("Unsupported system for sumneko")
+end
+
+-- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
+local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
+local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
+
+require'lspconfig'.sumneko_lua.setup {
+  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
   settings = {
-      Lua = {
-          runtime = {
-              -- Tell the language server which version of Lua you're using (LuaJIT in the case of Neovim)
-              version = 'LuaJIT',
-              -- Setup your lua path
-              path = vim.split(package.path, ';'),
-          },
-          diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = {'vim'},
-          },
-          workspace = {
-              -- Make the server aware of Neovim runtime files
-              library = {
-                  [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                  [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-              },
-          },
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Setup your lua path
+        path = vim.split(package.path, ';'),
       },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+        },
+      },
+    },
   },
 }
 
@@ -135,7 +148,6 @@ nvim_lsp.efm.setup{
     filetypes = {
         "python",
         "lua",
-        "cpp",
         "javascript",
         "javascriptreact",
         "javascript.jsx",
@@ -145,7 +157,6 @@ nvim_lsp.efm.setup{
     },
     on_attach = on_attach
 }
-
 
 -- Diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] =

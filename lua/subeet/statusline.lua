@@ -1,6 +1,6 @@
 local lualine = require('lualine')
 
-lualine.theme = 'gruvbox'
+lualine.theme = 'onedark'
 lualine.separator = '|'
 lualine.sections = {
   lualine_a = { 'mode' },

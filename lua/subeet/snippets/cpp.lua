@@ -20,4 +20,12 @@ cpp.test = [[int test;
         $0
     }]]
 
+cpp.leetcode = [[#include <bits/stdc++.h>
+
+$0
+
+int main() {
+    return 0;
+}]]
+
 return cpp
