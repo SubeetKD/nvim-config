@@ -14,8 +14,6 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
-Plug 'windwp/nvim-autopairs'
-
 " Git config
 Plug 'f-person/git-blame.nvim'
 Plug 'lewis6991/gitsigns.nvim'
@@ -129,8 +127,8 @@ let base16colorspace=256
 
 set background=dark
 
-colorscheme OceanicNext
-" lua require('colorbuddy').colorscheme('gruvbuddy')
+" colorscheme ayu
+lua require('colorbuddy').colorscheme('gruvbuddy')
 set t_Co=256
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -170,13 +168,12 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:completion_trigger_keyword_length = 2
 let g:completion_trigger_on_delete = 1
 let g:completion_timer_cycle = 200
-let g:completion_chain_complete_list = [
-    \{'complete_items': ['lsp', 'snippet', 'path']},
-    \{'mode': '<c-p>'},
-    \{'mode': '<c-n>'}
-\]
 autocmd BufEnter * lua require'completion'.on_attach()
 nnoremap <leader>lll <cmd>e ~/.local/share/nvim/lsp.log <cr>
+" Don't know if needed
+let g:completion_confirm_key = ""
+imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
+                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 
 let g:NERDCreateDefaultMappings = 1
 let g:NERDSpaceDelims = 1
@@ -198,7 +195,6 @@ let g:closetag_regions = {
     \ 'javascript.jsx': 'jsxRegion',
     \ }
 let g:closetag_shortcut = '>'
-
 
 " Vimwiki
 let g:vimwiki_list = [{'path':'~/vimwiki','syntax':'markdown','ext':'.md',
@@ -236,6 +232,7 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Telescope.nvim Using lua functions
+" TODO(SUBEET) --> make custom functions
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
@@ -246,5 +243,6 @@ let g:gitblame_message_template = '      <summary> • <date> • <author>'
 
 lua require('subeet.gitsigns')
 
-" using default config
-lua require('nvim-autopairs').setup()
+" using default config 
+" TODO(SUBEET) --> make custom config per file type
+" lua require('nvim-autopairs').setup()
