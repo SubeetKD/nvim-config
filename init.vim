@@ -5,6 +5,9 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'anott03/nvim-lspinstall'
 
+" REPL
+Plug 'metakirby5/codi.vim'
+
 " snippets and commenter
 Plug 'norcalli/snippets.nvim'
 Plug 'preservim/nerdcommenter'
@@ -48,6 +51,7 @@ Plug 'chriskempson/base16-vim'
 
 call plug#end()
 
+set inccommand=nosplit
 set noswapfile
 set nobackup
 set termguicolors
@@ -127,8 +131,8 @@ let base16colorspace=256
 
 set background=dark
 
-" colorscheme ayu
-lua require('colorbuddy').colorscheme('gruvbuddy')
+colorscheme OceanicNext
+" lua require('colorbuddy').colorscheme('gruvbuddy')
 set t_Co=256
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -168,9 +172,21 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:completion_trigger_keyword_length = 2
 let g:completion_trigger_on_delete = 1
 let g:completion_timer_cycle = 200
+let g:completion_chain_complete_list = {
+    \ 'default' : {
+    \   'default': [
+    \       {'complete_items': ['lsp', 'snippet']},
+    \       {'mode': '<c-p>'},
+    \       {'mode': '<c-n>'}],
+    \   'comment': [
+    \       {'complete_items': ['path']}],
+    \   'string': [
+    \       {'complete_items': ['path']}]
+    \   }
+    \}
 autocmd BufEnter * lua require'completion'.on_attach()
 nnoremap <leader>lll <cmd>e ~/.local/share/nvim/lsp.log <cr>
-" Don't know if needed
+" Don't know if needed ~/home
 let g:completion_confirm_key = ""
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
                  \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
@@ -246,3 +262,8 @@ lua require('subeet.gitsigns')
 " using default config 
 " TODO(SUBEET) --> make custom config per file type
 " lua require('nvim-autopairs').setup()
+
+
+" Codi.vim
+highlight CodiVirtualText guifg=cyan
+let g:codi#virtual_text_prefix = "❯ "
