@@ -1,5 +1,5 @@
 version: 2
-log-file: /home/subeet/efmlangserver.log
+log-file: /home/subeet/.config/efm-langserver/efmlangserver.log
 log-level: 1
 root-markers:
   - .git/

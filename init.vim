@@ -20,6 +20,8 @@ Plug 'nvim-telescope/telescope.nvim'
 " Git config
 Plug 'f-person/git-blame.nvim'
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'tpope/vim-fugitive'
+Plug 'stsewd/fzf-checkout.vim'
 
 " note and language based tool
 Plug 'alvan/vim-closetag'
@@ -254,11 +256,6 @@ nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
-" Git config
-let g:gitblame_message_template = '      <summary> • <date> • <author>'
-
-lua require('subeet.gitsigns')
-
 " using default config 
 " TODO(SUBEET) --> make custom config per file type
 " lua require('nvim-autopairs').setup()
@@ -267,3 +264,16 @@ lua require('subeet.gitsigns')
 " Codi.vim
 highlight CodiVirtualText guifg=cyan
 let g:codi#virtual_text_prefix = "❯ "
+
+" Git config
+
+"Git status
+nnoremap <leader>gs <cmd>G<cr> 
+nnoremap <leader>gc <cmd>Gcommit<cr> 
+
+" for resolving conflict
+nnoremap <leader>gch <cmd>diffget //2<cr>
+nnoremap <leader>gcl <cmd>diffget //3<cr>
+
+let g:gitblame_message_template = '      <summary> • <date> • <author>'
+lua require('subeet.gitsigns')
