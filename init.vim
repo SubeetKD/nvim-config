@@ -4,9 +4,16 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'anott03/nvim-lspinstall'
+Plug 'glepnir/lspsaga.nvim'
 
 " REPL
 Plug 'metakirby5/codi.vim'
+
+" Which-key
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+
+" File tree
+Plug 'kyazdani42/nvim-tree.lua'
 
 " snippets and commenter
 Plug 'norcalli/snippets.nvim'
@@ -36,9 +43,12 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'junegunn/goyo.vim'
 
 " Statusline
-Plug 'hoob3rt/lualine.nvim'
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
+
+" Searching
+Plug 'romainl/vim-cool'
 
 " Colorscheme
 Plug 'sickill/vim-monokai'
@@ -50,6 +60,9 @@ Plug 'tjdevries/gruvbuddy.nvim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'mhartington/oceanic-next'
 Plug 'chriskempson/base16-vim'
+Plug 'tomasiser/vim-code-dark'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'glepnir/zephyr-nvim'
 
 call plug#end()
 
@@ -133,8 +146,15 @@ let base16colorspace=256
 
 set background=dark
 
-colorscheme OceanicNext
+" colorscheme base16-default-dark
+" colorscheme dracula
+" colorscheme onedark
+colorscheme codedark
+" colorscheme zephyr
+" colorscheme gruvbox
+" lua require('zephyr').get_zephyr_color()
 " lua require('colorbuddy').colorscheme('gruvbuddy')
+
 set t_Co=256
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -162,10 +182,13 @@ lua require('subeet.snippets.snips')
 lua require('subeet.lsp.index')
 
 " Completion.nvim config
+
 set shortmess+=c
 set completeopt=menuone,noinsert,noselect
+
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 let g:completion_enable_snippet = 'snippets.nvim'
 let g:completion_enable_auto_hover = 1
 let g:completion_enable_auto_paren = 0
@@ -174,24 +197,16 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:completion_trigger_keyword_length = 2
 let g:completion_trigger_on_delete = 1
 let g:completion_timer_cycle = 200
-let g:completion_chain_complete_list = {
-    \ 'default' : {
-    \   'default': [
-    \       {'complete_items': ['lsp', 'snippet']},
-    \       {'mode': '<c-p>'},
-    \       {'mode': '<c-n>'}],
-    \   'comment': [
-    \       {'complete_items': ['path']}],
-    \   'string': [
-    \       {'complete_items': ['path']}]
-    \   }
-    \}
+let g:completion_auto_change_source = 1
+
 autocmd BufEnter * lua require'completion'.on_attach()
 nnoremap <leader>lll <cmd>e ~/.local/share/nvim/lsp.log <cr>
 " Don't know if needed ~/home
 let g:completion_confirm_key = ""
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
                  \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+
+lua require('subeet.lsp.lspsaga')
 
 let g:NERDCreateDefaultMappings = 1
 let g:NERDSpaceDelims = 1
@@ -276,4 +291,89 @@ nnoremap <leader>gch <cmd>diffget //2<cr>
 nnoremap <leader>gcl <cmd>diffget //3<cr>
 
 let g:gitblame_message_template = '      <summary> • <date> • <author>'
-lua require('subeet.gitsigns')
+" lua require('subeet.gitsigns')
+
+
+" Lua tree config
+let g:nvim_tree_side = 'left' "left by default
+let g:nvim_tree_width = 40 "30 by default
+let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
+let g:nvim_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
+let g:nvim_tree_auto_close = 0 "0 by default, closes the tree when it's the last window
+let g:nvim_tree_quit_on_open = 1 "0 by default, closes the tree when you open a file
+let g:nvim_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
+let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
+let g:nvim_tree_hide_dotfiles = 1 "0 by default, this option hides files and folders starting with a dot `.`
+let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
+let g:nvim_tree_root_folder_modifier = ':~' "This is the default. See :help filename-modifiers for more options
+let g:nvim_tree_tab_open = 1 "0 by default, will open the tree when entering a new tab and the tree was previously open
+let g:nvim_tree_width_allow_resize  = 1 "0 by default, will not resize the tree when opening a file
+let g:nvim_tree_show_icons = {
+    \ 'git': 1,
+    \ 'folders': 1,
+    \ 'files': 1,
+    \ }
+"If 0, do not show the icons for one of 'git' 'folder' and 'files'
+"1 by default, notice that if 'files' is 1, it will only display
+"if nvim-web-devicons is installed and on your runtimepath
+
+" You can edit keybindings be defining this variable
+" You don't have to define all keys.
+" NOTE: the 'edit' key will wrap/unwrap a folder and open a file
+let g:nvim_tree_bindings = {
+    \ 'edit':            ['<CR>', 'o'],
+    \ 'edit_vsplit':     '<C-v>',
+    \ 'edit_split':      '<C-x>',
+    \ 'edit_tab':        '<C-t>',
+    \ 'close_node':      ['<S-CR>', '<BS>'],
+    \ 'toggle_ignored':  'I',
+    \ 'toggle_dotfiles': 'H',
+    \ 'refresh':         'R',
+    \ 'preview':         '<Tab>',
+    \ 'cd':              '<C-]>',
+    \ 'create':          'a',
+    \ 'remove':          'd',
+    \ 'rename':          'r',
+    \ 'cut':             'x',
+    \ 'copy':            'c',
+    \ 'paste':           'p',
+    \ 'prev_git_item':   '[c',
+    \ 'next_git_item':   ']c',
+    \ 'dir_up':          '-',
+    \ 'close':           'q',
+    \ }
+
+" Disable default mappings by plugin
+" Bindings are enable by default, disabled on any non-zero value
+" let nvim_tree_disable_keybindings=1
+
+" default will show icon by default if no icon is provided
+" default shows no icon by default
+let g:nvim_tree_icons = {
+    \ 'default': ' ',
+    \ 'symlink': ' ',
+    \ 'git': {
+    \   'unstaged': "✗ ",
+    \   'staged': "✓ ",
+    \   'unmerged': " ",
+    \   'renamed': "➜ ",
+    \   'untracked': "★ "
+    \   },
+    \ 'folder': {
+    \   'default': "",
+    \   'open': "",
+    \   'symlink': "",
+    \   }
+    \ }
+
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
+" NvimTreeOpen and NvimTreeClose are also available if you need them
+
+set termguicolors " this variable must be enabled for colors to be applied properly
+
+" a list of groups can be found at `:help nvim_tree_highlight`
+highlight NvimTreeFolderIcon guibg=blue
+
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
