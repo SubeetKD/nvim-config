@@ -63,6 +63,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'tomasiser/vim-code-dark'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'glepnir/zephyr-nvim'
+Plug 'Th3Whit3Wolf/one-nvim'
 
 call plug#end()
 
@@ -80,6 +81,7 @@ set winblend=10
 set scrolloff=5
 set mouse=a
 set updatetime=10
+set guicursor=
 
 let g:mapleader = ' '
 
@@ -146,10 +148,11 @@ let base16colorspace=256
 
 set background=dark
 
+colorscheme one-nvim
 " colorscheme base16-default-dark
 " colorscheme dracula
 " colorscheme onedark
-colorscheme codedark
+" colorscheme codedark
 " colorscheme zephyr
 " colorscheme gruvbox
 " lua require('zephyr').get_zephyr_color()
@@ -291,7 +294,7 @@ nnoremap <leader>gch <cmd>diffget //2<cr>
 nnoremap <leader>gcl <cmd>diffget //3<cr>
 
 let g:gitblame_message_template = '      <summary> • <date> • <author>'
-" lua require('subeet.gitsigns')
+lua require('subeet.gitsigns')
 
 
 " Lua tree config
