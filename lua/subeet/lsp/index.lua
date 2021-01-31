@@ -89,13 +89,22 @@ end
 
 -- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
-local servers = {"pyls", "cssls", "gopls", "html", "vimls", "tsserver"}
+local servers = {"cssls", "gopls", "html", "vimls", "tsserver"}
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         capabilities = capabilities,
         on_attach = on_attach
     }
 end
+
+-- Disable python's default formatter
+nvim_lsp.pyls.setup {
+    capabilities = capabilities,
+    on_attach = function(client)
+        client.resolved_capabilities.document_formatting = false
+        on_attach(client)
+    end
+}
 
 nvim_lsp.clangd.setup {
     capabilities = capabilities,
@@ -119,7 +128,8 @@ else
 end
 
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server"
+-- local sumneko_root_path = vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server"
+local sumneko_root_path = '/home/subeet/.local/share/nvim/lspinstall/lua-langauge-server'
 local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 
 require "lspconfig".sumneko_lua.setup {

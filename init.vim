@@ -6,6 +6,8 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'anott03/nvim-lspinstall'
 Plug 'glepnir/lspsaga.nvim'
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
 " REPL
 Plug 'metakirby5/codi.vim'
 
@@ -17,7 +19,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 
 " snippets and commenter
 Plug 'norcalli/snippets.nvim'
-Plug 'preservim/nerdcommenter'
+Plug 'b3nj5m1n/kommentary'
 
 " Telescope.nvim
 Plug 'nvim-lua/popup.nvim'
@@ -82,6 +84,7 @@ set scrolloff=5
 set mouse=a
 set updatetime=10
 set guicursor=
+set nu rnu
 
 let g:mapleader = ' '
 
@@ -148,6 +151,7 @@ let base16colorspace=256
 
 set background=dark
 
+" colorscheme ayu
 colorscheme one-nvim
 " colorscheme base16-default-dark
 " colorscheme dracula
@@ -164,15 +168,15 @@ if exists('+termguicolors')
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-highlight ColorColumn ctermbg=0 guibg=grey
+" highlight ColorColumn ctermbg=0 guibg=grey
 " highlight Normal guibg=none
 " highlight LineNr guifg=#ff8542
 " highlight LineNr guifg=#aed75f
-highlight LineNr guifg=#5eacd3
-highlight netrwDir guifg=#5eacd3
-highlight qfFileName guifg=#aed75f
-highlight StatusLine guibg=none
-highlight StatusLineNC guibg=none
+" highlight LineNr guifg=#5eacd3
+" highlight netrwDir guifg=#5eacd3
+" highlight qfFileName guifg=#aed75f
+" highlight StatusLine guibg=none
+" highlight StatusLineNC guibg=none
 
 lua require('subeet.colorizer')
 
@@ -211,15 +215,7 @@ imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
 
 lua require('subeet.lsp.lspsaga')
 
-let g:NERDCreateDefaultMappings = 1
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs = 1
-let g:NERDDefaultAlign = 'left'
-let g:NERDAltDelims_java = 1
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
-let g:NERDToggleCheckAllLines = 1
+lua require('subeet.utils.commenter')
 
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
