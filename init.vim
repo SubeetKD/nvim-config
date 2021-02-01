@@ -2,7 +2,8 @@ call plug#begin('~/.config/nvim/plugged')
 
 " lsp and autocomplete 
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+Plug 'hrsh7th/nvim-compe'
+" Plug 'nvim-lua/completion-nvim'
 Plug 'anott03/nvim-lspinstall'
 Plug 'glepnir/lspsaga.nvim'
 
@@ -152,7 +153,7 @@ let base16colorspace=256
 set background=dark
 
 " colorscheme ayu
-colorscheme one-nvim
+" colorscheme one-nvim
 " colorscheme base16-default-dark
 " colorscheme dracula
 " colorscheme onedark
@@ -160,7 +161,7 @@ colorscheme one-nvim
 " colorscheme zephyr
 " colorscheme gruvbox
 " lua require('zephyr').get_zephyr_color()
-" lua require('colorbuddy').colorscheme('gruvbuddy')
+lua require('colorbuddy').colorscheme('gruvbuddy')
 
 set t_Co=256
 if exists('+termguicolors')
@@ -188,30 +189,62 @@ lua require('subeet.snippets.snips')
 
 lua require('subeet.lsp.index')
 
-" Completion.nvim config
+" nvim-compe useage
 
-set shortmess+=c
-set completeopt=menuone,noinsert,noselect
+set completeopt=menu,menuone,noselect
+
+let g:compe = {}
+let g:compe.enabled = v:true
+let g:compe.autocomplete = v:true
+let g:compe.debug = v:false
+let g:compe.min_length = 1
+let g:compe.preselect = 'enable'
+let g:compe.throttle_time = 80
+let g:compe.source_timeout = 200
+let g:compe.incomplete_delay = 400
+let g:compe.allow_prefix_unmatch = v:false
+
+let g:compe.source = {}
+let g:compe.source.path = v:true
+let g:compe.source.buffer = v:true
+let g:compe.source.calc = v:true
+let g:compe.source.vsnip = v:false
+let g:compe.source.nvim_lsp = v:true
+let g:compe.source.nvim_lua = v:true
+let g:compe.source.spell = v:true
+let g:compe.source.snippets_nvim = v:true
+
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-let g:completion_enable_snippet = 'snippets.nvim'
-let g:completion_enable_auto_hover = 1
-let g:completion_enable_auto_paren = 0
-let g:completion_matching_smart_case = 1
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-let g:completion_trigger_keyword_length = 2
-let g:completion_trigger_on_delete = 1
-let g:completion_timer_cycle = 200
-let g:completion_auto_change_source = 1
+" Completion.nvim config
 
-autocmd BufEnter * lua require'completion'.on_attach()
-nnoremap <leader>lll <cmd>e ~/.local/share/nvim/lsp.log <cr>
-" Don't know if needed ~/home
-let g:completion_confirm_key = ""
-imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
-                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+" set shortmess+=c
+" set completeopt=menuone,noinsert,noselect
+"
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"
+" let g:completion_enable_snippet = 'snippets.nvim'
+" let g:completion_enable_auto_hover = 1
+" let g:completion_enable_auto_paren = 0
+" let g:completion_matching_smart_case = 1
+" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+" let g:completion_trigger_keyword_length = 2
+" let g:completion_trigger_on_delete = 1
+" let g:completion_timer_cycle = 200
+" let g:completion_auto_change_source = 1
+"
+" autocmd BufEnter * lua require'completion'.on_attach()
+" nnoremap <leader>lll <cmd>e ~/.local/share/nvim/lsp.log <cr>
+" " Don't know if needed ~/home
+" let g:completion_confirm_key = ""
+" imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
+                 " \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 
 lua require('subeet.lsp.lspsaga')
 

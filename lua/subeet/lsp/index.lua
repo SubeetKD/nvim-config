@@ -1,5 +1,5 @@
 local nvim_lsp = require("lspconfig")
-local completion = require("completion")
+-- local completion = require("completion")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -17,7 +17,6 @@ local chain_complete_list = {
     },
     comment = {}
 }
-
 
 -- vim.g.completion_chain_complete_list = chain_complete_list
 
@@ -61,7 +60,8 @@ local on_attach = function(client, bufnr)
 
     -- Set autocommands conditional on server_capabilities
     if client.resolved_capabilities.document_highlight then
-        vim.api.nvim_exec( [[
+        vim.api.nvim_exec(
+            [[
           :hi LspReferenceRead cterm=bold ctermbg=red guibg=Black
           :hi LspReferenceText cterm=bold ctermbg=red guibg=Black
           :hi LspReferenceWrite cterm=bold ctermbg=red guibg=Black
@@ -70,7 +70,9 @@ local on_attach = function(client, bufnr)
             autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
             autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
           augroup END
-        ]], false)
+        ]],
+            false
+        )
     end
     if client.resolved_capabilities.document_formatting then
         vim.api.nvim_command [[augroup Format]]
@@ -79,12 +81,12 @@ local on_attach = function(client, bufnr)
         vim.api.nvim_command [[augroup END]]
     end
 
-    completion.on_attach(
+    --[[ completion.on_attach(
         {
             matching_strategy_list = {"exact", "substring", "fuzzy"},
             chain_complete_list = chain_complete_list
         }
-    )
+    ) ]]
 end
 
 -- Use a loop to conveniently both setup defined servers
@@ -129,7 +131,7 @@ end
 
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
 -- local sumneko_root_path = vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server"
-local sumneko_root_path = '/home/subeet/.local/share/nvim/lspinstall/lua-langauge-server'
+local sumneko_root_path = "/home/subeet/.local/share/nvim/lspinstall/lua-langauge-server"
 local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 
 require "lspconfig".sumneko_lua.setup {
