@@ -18,3 +18,8 @@ local saga = require 'lspsaga'
 -- }
 --
 -- saga.init_lsp_saga(opts)
+
+
+-- use default config
+
+saga.init_lsp_saga()

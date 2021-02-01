@@ -33,20 +33,37 @@ local on_attach = function(client, bufnr)
     -- Mappings.
     -- TODO(Subeet) -> lspsaga floatterminal mappings
     local opts = {noremap = true, silent = true}
+
+    -- Find the cursor word defination and references
     buf_set_keymap("n", "<leader>vgh", "<cmd>lua require('lspsaga.provider').lsp_finder()<CR>", opts)
-    buf_set_keymap("n", "<leader>vgD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+    -- buf_set_keymap("n", "<leader>vgD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+
+    -- Lspsaga preview Defination
     buf_set_keymap("n", "<leader>vgd", "<cmd>lua require'lspsaga.provider'.preview_definiton()<CR>", opts)
-    buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+
+    -- Lspsaga hover doc
+    buf_set_keymap("n", "K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
     buf_set_keymap("n", "<leader>vgi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap("n", "<leader>vca", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", opts)
-    buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+
+    -- Lspsaga code actions
+    buf_set_keymap("n", "<leader>vca", "<cmd>lua require('lspsaga.codeaction').code_action()<cr>", opts)
+    buf_set_keymap("v", "<leader>vca", "<cmd>'<,'lua require('lspsaga.codeaction').code_action()<cr>", opts)
+
+    -- Lspsaga signature help
+    buf_set_keymap("n", "<leader>vgs", "<cmd>lua requier('lspsaga.signaturehelp').signature_help()<CR>", opts)
+
     buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
     buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-    buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+
+    -- Lsp rename
+    buf_set_keymap("n", "<leader>vrn", "<cmd>lua require('lspsaga.rename').rename()<CR>", opts)
+
     buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    buf_set_keymap("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
+
+    -- Lspsaga diagnostic
+    buf_set_keymap("n", "<leader>ve", "<cmd>lua require('lspsaga.diagnostic').show_line_diagnostics()<CR>", opts)
     buf_set_keymap("n", "[e", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", opts)
     buf_set_keymap("n", "]e", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", opts)
     buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
