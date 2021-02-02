@@ -52,10 +52,10 @@ local on_attach = function(client, bufnr)
     -- Lspsaga signature help
     buf_set_keymap("n", "<leader>vgs", "<cmd>lua requier('lspsaga.signaturehelp').signature_help()<CR>", opts)
 
-    buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+    --[[ buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-    buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+    buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts) ]]
 
     -- Lsp rename
     buf_set_keymap("n", "<leader>vrn", "<cmd>lua require('lspsaga.rename').rename()<CR>", opts)
@@ -66,7 +66,8 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<leader>ve", "<cmd>lua require('lspsaga.diagnostic').show_line_diagnostics()<CR>", opts)
     buf_set_keymap("n", "[e", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", opts)
     buf_set_keymap("n", "]e", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", opts)
-    buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+
+    -- buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 
     -- Set some keybinds conditional on server capabilities
     if client.resolved_capabilities.document_formatting then

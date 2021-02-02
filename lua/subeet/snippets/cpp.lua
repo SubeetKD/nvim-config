@@ -1,13 +1,15 @@
 local cpp = {}
 
-cpp.karo = [[
+cpp.karo =
+    [[
 #include <bits/stdc++.h>
 #define int long long
+using namespace std;
 
 signed main() {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    std::cout.tie(nullptr);
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
 
     $0
 
@@ -15,12 +17,13 @@ signed main() {
 }]]
 
 cpp.test = [[int test;
-    std::cin >> test;
+    cin >> test;
     while (test--) {
         $0
     }]]
 
 cpp.leetcode = [[#include <bits/stdc++.h>
+using namespace std;
 
 $0
 
