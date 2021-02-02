@@ -190,6 +190,7 @@ nvim_lsp.efm.setup {
     filetypes = {
         "python",
         "lua",
+        "html",
         "javascript",
         "javascriptreact",
         "javascript.jsx",

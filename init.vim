@@ -49,6 +49,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'romainl/vim-cool'
 
 " Colorscheme
+Plug 'patstockwell/vim-monokai-tasty'
 Plug 'sickill/vim-monokai'
 Plug 'tomasr/molokai'
 Plug 'joshdick/onedark.vim'
@@ -81,6 +82,8 @@ set mouse=a
 set updatetime=10
 " set guicursor=
 set nu rnu
+set splitright
+set splitbelow
 
 let g:python3_host_prog='/usr/bin/python3'
 
@@ -92,6 +95,8 @@ vmap < <gv
 vmap > >gv
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 vnoremap X "_d
 nnoremap x "_x
 autocmd TermEnter * setlocal nonu nornu
@@ -141,11 +146,12 @@ let g:rehash256 = 1
 let g:onedark_termcolors = 256
 let g:onedark_terminal_italics = 1
 let g:ayucolor = "dark"
-let g:gruvbox_contrast_dark = "hard"
+let g:gruvbox_contrast_dark = "medium"
 let g:gruvbox_invert_selection='0'
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1
 let base16colorspace=256
+let g:vim_monokai_tasty_italic = 1
 
 set background=dark
 
@@ -155,8 +161,11 @@ set background=dark
 " colorscheme dracula
 " colorscheme onedark
 " colorscheme codedark
+" colorscheme vim-monokai-tasty
+colorscheme monokai
+" colorscheme molokai
 " colorscheme zephyr
-colorscheme gruvbox
+" colorscheme gruvbox
 " lua require('zephyr').get_zephyr_color()
 " lua require('colorbuddy').colorscheme('gruvbuddy')
 
