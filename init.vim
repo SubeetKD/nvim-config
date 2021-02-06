@@ -8,6 +8,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'anott03/nvim-lspinstall'
 Plug 'glepnir/lspsaga.nvim'
+Plug 'kosayoda/nvim-lightbulb'
 " }}}
 
 " Helper plugins(TBD) {{{
@@ -242,6 +243,8 @@ lua require('subeet.statusline')
 " Autocompletion, syntax highlighting, snippets {{{
 lua require('subeet.treesitter')
 
+autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+
 lua require('subeet.snippets.snips')
 
 lua require('subeet.lsp.index')
@@ -300,5 +303,6 @@ lua require('subeet.telescope.index')
 
 nnoremap <leader>fdf <cmd>lua require('subeet.telescope.fun').edit_neovim()<cr>
 nnoremap <leader>fff <cmd>lua require('subeet.telescope.fun').builtin()<cr>
-nnoremap <leader>fgf <cmd>lua require('subeet.telescope.fun').git_files()<cr>
+nnoremap <C-p> <cmd>lua require('subeet.telescope.fun').git_files()<cr>
+nnoremap <C-b> <cmd>lua require('subeet.telescope.fun').buffers()<cr>
 " }}}

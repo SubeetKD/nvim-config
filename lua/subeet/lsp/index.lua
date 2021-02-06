@@ -2,6 +2,7 @@ local nvim_lsp = require("lspconfig")
 local completion = require("completion")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
+-- TODO(Subeet) use nvim-jdtls
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 vim.lsp.set_log_level("debug")
@@ -56,7 +57,6 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
     buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts) ]]
-
     -- Lsp rename
     buf_set_keymap("n", "<leader>vrn", "<cmd>lua require('lspsaga.rename').rename()<CR>", opts)
 
@@ -109,7 +109,7 @@ end
 
 -- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
-local servers = {"cssls", "gopls", "html", "vimls", "tsserver"}
+local servers = {"cssls", "pyls", "gopls", "html", "vimls"}
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         capabilities = capabilities,
@@ -117,15 +117,35 @@ for _, lsp in ipairs(servers) do
     }
 end
 
--- Disable python's default formatter
-nvim_lsp.pyls.setup {
-    capabilities = capabilities,
-    on_attach = function(client)
-        client.resolved_capabilities.document_formatting = false
-        on_attach(client)
-    end
-}
+local servers_no_format = {"tsserver"}
+for _, lsp in ipairs(servers_no_format) do
+    nvim_lsp[lsp].setup {
+        capabilities = capabilities,
+        on_attach = function(client)
+            client.resolved_capabilities.document_formatting = false
+            on_attach(client)
+        end
+    }
+end
 
+--[[ nvim_lsp.jdtls.setup {
+    capablities = capablities,
+    cmd = { "java", "-Declipse.application=org.eclipse.jdt.ls.core.id1", "-Dosgi.bundles.defaultStartLevel=4", "-Declipse.product=org.eclipse.jdt.ls.core.product", "-Dlog.protocol=true", "-Dlog.level=ALL", "-Xms1g", "-Xmx2G", "-jar", "vim.NIL", "-configuration", "vim.NIL", "-data", "vim.NIL", "--add-modules=ALL-SYSTEM", "--add-opens java.base/java.util=ALL-UNNAMED", "--add-opens java.base/java.lang=ALL-UNNAMED" },
+    cmd_env = {
+      GRADLE_HOME = "/usr/share/gradle",
+      JAR = vim.NIL
+    },
+    filetypes = { "java" },
+    handlers = {
+      ["language/status"] = <function 1>,
+      ["textDocument/codeAction"] = <function 2>
+    },
+    init_options = {
+      jvm_args = {},
+      workspace = "/home/subeet/workspace"
+    }
+    root_dir = nvim_lsp.util.root_pattern(".git")
+} ]]
 nvim_lsp.clangd.setup {
     capabilities = capabilities,
     cmd = {"clangd", "--background-index", "-fallback-style=WebKit"},
@@ -188,7 +208,7 @@ nvim_lsp.efm.setup {
         }
     },
     filetypes = {
-        "python",
+        -- "python", -- removes the entire file with <cmd> w <cr>
         "lua",
         "html",
         "javascript",

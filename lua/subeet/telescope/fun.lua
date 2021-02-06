@@ -1,4 +1,4 @@
-local tele = require('telescope.builtin')
+local tele = require("telescope.builtin")
 
 -- TODO
 -- https://github.com/tjdevries/config_manager/blob/master/xdg_config/nvim/lua/tj/telescope/init.lua
@@ -11,11 +11,10 @@ function M.edit_neovim()
         shorten_path = true,
         cwd = "~/.local/src/nvim-config",
         width = .25,
-
-        layout_strategy = 'horizontal',
+        layout_strategy = "horizontal",
         layout_config = {
             preview_width = 0.65
-        },
+        }
     }
 end
 
@@ -29,11 +28,22 @@ function M.git_files()
         shorten_path = false,
         -- cwd = "~/.local/src/nvim-config",
         width = .45,
-
-        layout_strategy = 'horizontal',
+        layout_strategy = "horizontal",
         layout_config = {
             preview_width = 0.55
-        },
+        }
+    }
+end
+
+function M.buffers()
+    tele.buffers {
+        prompt_title = "<== Buffers ==>",
+        shorten_path = true,
+        width = .45,
+        layout_strategy = "horizontal",
+        layout_config = {
+            preview_width = .55
+        }
     }
 end
 

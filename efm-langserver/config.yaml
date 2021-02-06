@@ -69,7 +69,7 @@ tools:
 
   python-flake8: &python-flake8
     lint-command: 'flake8 --stdin-display-name ${INPUT} -'
-    lint-stdin: true
+    lint-stdin: false
     lint-formats:
       - '%f:%l:%c: %m'
 
@@ -103,7 +103,7 @@ tools:
     format-stdin: true
 
   javascript-eslint: &javascript-eslint
-    lint-command: 'yarn run eslint -f unix --stdin'
+    lint-command: 'npx eslint -f unix --stdin'
     lint-ignore-exit-code: true
     lint-stdin: true
 
@@ -177,9 +177,9 @@ languages:
   yaml:
     - <<: *yaml-yamllint
 
-  python:
-    - <<: *python-flake8
-    - <<: *python-black
+  # python:
+    # - <<: *python-flake8
+    # - <<: *python-black
 
   dockerfile:
     - <<: *dockerfile-hadolint
@@ -188,25 +188,24 @@ languages:
     - <<: *sh-shellcheck
     - <<: *sh-shfmt
 
-  javascript:
-    - <<: *javascript-eslint
+  # javascript:
+  #   - <<: *javascript-eslint
 
   cpp:
     - <<: *cpplint
 
-# Javascript and family
-  # javascript:
-  #   - <<: *eslint_d
-  # javascriptreact:
-  #   - <<: *eslint_d
-  # javascript.jsx:
-  #   - <<: *eslint_d
-  # typescript:
-  #   - <<: *eslint_d
-  # typescript.tsx:
-  #   - <<: *eslint_d
-  # typescriptreact:
-  #   - <<: *eslint_d
+  javascript:
+    - <<: *eslint_d
+  javascriptreact:
+    - <<: *eslint_d
+  javascript.jsx:
+    - <<: *eslint_d
+  typescript:
+    - <<: *eslint_d
+  typescript.tsx:
+    - <<: *eslint_d
+  typescriptreact:
+      - <<: *eslint_d
 
   php:
     - <<: *php-phpstan
