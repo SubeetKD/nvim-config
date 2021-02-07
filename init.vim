@@ -15,6 +15,7 @@ Plug 'kosayoda/nvim-lightbulb'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " for fzf-checkout
 Plug 'nvim-lua/popup.nvim'  " telescope ...
 Plug 'nvim-lua/plenary.nvim' " telescope ...
+Plug 'mboughaba/i3config.vim' " i3config
 " }}}
 
 " snippets and commenter {{{
@@ -131,7 +132,7 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
-autocmd filetype cpp set tabstop=4 shiftwidth=4
+autocmd filetype cpp set tabstop=2 shiftwidth=2
 
 autocmd BufEnter * silent! lcd %:p:h
 
@@ -204,6 +205,8 @@ highlight ColorColumn ctermbg=0 guibg=grey
 " highlight LineNr guifg=#5eacd3
 " highlight netrwDir guifg=#5eacd3
 " highlight qfFileName guifg=#aed75f
+highlight StatusLine guibg=none
+highlight StatusLineNC guibg=none
 
 lua require('subeet.colorizer')
 
