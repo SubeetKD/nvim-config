@@ -112,6 +112,7 @@ vnoremap K :m '<-2<CR>gv=gv
 vnoremap X "_d
 nnoremap x "_x
 
+
 " window managment
 nnoremap <silent> <leader>l 5<C-w>><cr>
 nnoremap <silent> <leader>h 5<C-w><<cr>
@@ -131,8 +132,6 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
-
-autocmd filetype cpp set tabstop=2 shiftwidth=2
 
 autocmd BufEnter * silent! lcd %:p:h
 
@@ -190,7 +189,8 @@ let g:oceanic_next_terminal_italic = 1
 let base16colorspace=256
 let g:vim_monokai_tasty_italic = 1
 
-colorscheme OceanicNext
+" colorscheme OceanicNext
+lua require('colorbuddy').colorscheme('gruvbuddy')
 
 set t_Co=256
 if exists('+termguicolors')

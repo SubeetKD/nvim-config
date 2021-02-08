@@ -148,7 +148,7 @@ end
 } ]]
 nvim_lsp.clangd.setup {
     capabilities = capabilities,
-    cmd = {"clangd", "--background-index"},
+    cmd = {"clangd", "--background-index", "-fallback-style=Webkit"},
     on_attach = function(client)
         client.resolved_capabilities.document_formatting = true
         on_attach(client)
