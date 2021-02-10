@@ -1,57 +1,50 @@
-
 " Plugins {{{
  
 call plug#begin('~/.config/nvim/plugged')
 
-"lsp and autocomplete {{{
+"lsp and autocomplete
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'anott03/nvim-lspinstall'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'kosayoda/nvim-lightbulb'
-" }}}
 
-" Helper plugins(TBD) {{{
+" Helper plugins(TBD)
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " for fzf-checkout
 Plug 'nvim-lua/popup.nvim'  " telescope ...
 Plug 'nvim-lua/plenary.nvim' " telescope ...
 Plug 'mboughaba/i3config.vim' " i3config
-" }}}
 
-" snippets and commenter {{{
+" snippets and commenter
 Plug 'norcalli/snippets.nvim'
 Plug 'b3nj5m1n/kommentary'
 Plug 'nvim-telescope/telescope.nvim'
-" }}}
 
-" Git config {{{
+" Git config
 " Plug 'TimUntersberger/neogit'
 Plug 'f-person/git-blame.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'stsewd/fzf-checkout.vim'
-" }}}
 
-" note and utility {{{
+" note and utility
 Plug 'alvan/vim-closetag'
 Plug 'vimwiki/vimwiki'
 Plug 'romainl/vim-cool'
-" }}}
 
-" Visual improvements {{{
+" Visual improvements
 Plug 'junegunn/goyo.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
 Plug 'norcalli/nvim-colorizer.lua'
-" }}}
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
-" Statusline {{{
+" Statusline
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
-" }}}
 
-" Colorscheme Messy {{{
+" Colorscheme Messy 
 
 " gitsign compatible (don't know)
 Plug 'mhartington/oceanic-next'
@@ -70,7 +63,6 @@ Plug 'tjdevries/colorbuddy.vim'
 Plug 'tjdevries/gruvbuddy.nvim'
 Plug 'tomasiser/vim-code-dark'
 Plug 'glepnir/zephyr-nvim'
-" }}}
 
 call plug#end()
 
@@ -92,11 +84,13 @@ set winblend=10
 set scrolloff=5
 set mouse=a
 set updatetime=10
+set signcolumn=yes
 set nu rnu
 set splitright
 set splitbelow
 set background=dark
 set foldmethod=marker
+set guifont=JetBrainsMono\ Nerd\ Font\ Mono:h13
 
 let g:python3_host_prog='/usr/bin/python3'
 let g:mapleader = ' '
@@ -172,7 +166,7 @@ nnoremap <leader>gch <cmd>diffget //2<cr>
 nnoremap <leader>gcl <cmd>diffget //3<cr>
 
 let g:gitblame_message_template = '      <summary> • <date> • <author>'
-lua require('subeet.gitsigns')
+" lua require('subeet.gitsigns')
 
 " }}}
 
@@ -189,8 +183,8 @@ let g:oceanic_next_terminal_italic = 1
 let base16colorspace=256
 let g:vim_monokai_tasty_italic = 1
 
-" colorscheme OceanicNext
-lua require('colorbuddy').colorscheme('gruvbuddy')
+colorscheme dracula
+" lua require('colorbuddy').colorscheme('gruvbuddy')
 
 set t_Co=256
 if exists('+termguicolors')
@@ -205,8 +199,8 @@ highlight ColorColumn ctermbg=0 guibg=grey
 " highlight LineNr guifg=#5eacd3
 " highlight netrwDir guifg=#5eacd3
 " highlight qfFileName guifg=#aed75f
-highlight StatusLine guibg=none
-highlight StatusLineNC guibg=none
+" highlight StatusLine guibg=none
+" highlight StatusLineNC guibg=none
 
 lua require('subeet.colorizer')
 

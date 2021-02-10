@@ -2,7 +2,10 @@ local nvim_lsp = require("lspconfig")
 local completion = require("completion")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
--- TODO(Subeet) use nvim-jdtls
+-- TODO(Subeet):
+--     1. Better mapping for lsp
+--     2. [nvim-jdtls, hls(?) ] server setup
+--     3. checkout clangd(alternatives) ?
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 vim.lsp.set_log_level("debug")
@@ -19,8 +22,6 @@ local chain_complete_list = {
     comment = {}
 }
 
--- vim.g.completion_chain_complete_list = chain_complete_list
-
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -31,8 +32,8 @@ local on_attach = function(client, bufnr)
 
     buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
-    -- Mappings.
-    -- TODO(Subeet) -> lspsaga floatterminal mappings
+    -- Mappings
+    -- TODO(Subeet) -> Better mapping ans more functions
     local opts = {noremap = true, silent = true}
 
     -- Find the cursor word defination and references
@@ -40,7 +41,7 @@ local on_attach = function(client, bufnr)
     -- buf_set_keymap("n", "<leader>vgD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 
     -- Lspsaga preview Defination
-    buf_set_keymap("n", "<leader>vgd", "<cmd>lua require'lspsaga.provider'.preview_definiton()<CR>", opts)
+    buf_set_keymap("n", "<leader>vgp", "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>", opts)
 
     -- Lspsaga hover doc
     buf_set_keymap("n", "K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
@@ -51,7 +52,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("v", "<leader>vca", "<cmd>'<,'lua require('lspsaga.codeaction').code_action()<cr>", opts)
 
     -- Lspsaga signature help
-    buf_set_keymap("n", "<leader>vgs", "<cmd>lua requier('lspsaga.signaturehelp').signature_help()<CR>", opts)
+    buf_set_keymap("n", "<leader>vgf", "<cmd>lua requier('lspsaga.signaturehelp').signature_help()<CR>", opts)
 
     --[[ buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
@@ -155,6 +156,11 @@ nvim_lsp.clangd.setup {
     end
 }
 
+-- Haskel language server
+nvim_lsp.hls.setup {
+    root_dir = nvim_lsp.util.root_pattern(".git")
+}
+
 -- does not require snippet support, but provides some snippet completion candidates out of the box
 local system_name
 if vim.fn.has("mac") == 1 then
@@ -169,7 +175,7 @@ end
 
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
 -- local sumneko_root_path = vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server"
-local sumneko_root_path = "/home/subeet/.local/share/nvim/lspinstall/lua-langauge-server"
+local sumneko_root_path = "/home/subeet/.local/share/nvim/lspinstall/lua-language-server"
 local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 
 require "lspconfig".sumneko_lua.setup {
