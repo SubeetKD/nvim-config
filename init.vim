@@ -68,34 +68,7 @@ call plug#end()
 
 " }}}
 
-" Some defaults {{{
-
-set inccommand=nosplit
-set noswapfile
-set nobackup
-set termguicolors
-set nowrap
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set clipboard+=unnamedplus
-set pumblend=15
-set winblend=10
-set scrolloff=5
-set mouse=a
-set updatetime=10
-set signcolumn=yes
-set nu rnu
-set splitright
-set splitbelow
-set background=dark
-set foldmethod=marker
-set guifont=JetBrainsMono\ Nerd\ Font\ Mono:h13
-
-let g:python3_host_prog='/usr/bin/python3'
-let g:mapleader = ' '
-
-" }}}
+lua require('subeet.basic.options')
 
 " Basic Mappings {{{
 inoremap <A-BS> <C-w>
@@ -157,19 +130,6 @@ aug end
 
 " }}}
 
-" Git status {{{
-nnoremap <leader>gs <cmd>G<cr> 
-nnoremap <leader>gc <cmd>Gcommit<cr> 
-
-" for resolving conflict
-nnoremap <leader>gch <cmd>diffget //2<cr>
-nnoremap <leader>gcl <cmd>diffget //3<cr>
-
-let g:gitblame_message_template = '      <summary> • <date> • <author>'
-" lua require('subeet.gitsigns')
-
-" }}}
-
 " Colorscheme and goyo and visual {{{
 let g:molokai_original = 1
 let g:rehash256 = 1
@@ -193,7 +153,7 @@ if exists('+termguicolors')
 endif
 
 highlight ColorColumn ctermbg=0 guibg=grey
-" highlight Normal guibg=none
+highlight Normal guibg=none
 " highlight LineNr guifg=#ff8542
 " highlight LineNr guifg=#aed75f
 " highlight LineNr guifg=#5eacd3
@@ -235,6 +195,19 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 lua require('subeet.statusline')
+" }}}
+
+" Git status {{{
+nnoremap <leader>gs <cmd>G<cr> 
+nnoremap <leader>gc <cmd>Gcommit<cr> 
+
+" for resolving conflict
+nnoremap <leader>gch <cmd>diffget //2<cr>
+nnoremap <leader>gcl <cmd>diffget //3<cr>
+
+let g:gitblame_message_template = '      <summary> • <date> • <author>'
+lua require('subeet.gitsigns')
+
 " }}}
 
 " Autocompletion, syntax highlighting, snippets {{{
@@ -295,11 +268,5 @@ let g:vimwiki_list = [{'path':'~/vimwiki','syntax':'markdown','ext':'.md',
 let g:vimwiki_ext2syntax = {'.md':'markdown','.markdown':'markdown','.mdown':'markdown'}
 " }}}
 
-" File finder {{{
+" File finder
 lua require('subeet.telescope.index')
-
-nnoremap <leader>fdf <cmd>lua require('subeet.telescope.fun').edit_neovim()<cr>
-nnoremap <leader>fff <cmd>lua require('subeet.telescope.fun').builtin()<cr>
-nnoremap <C-p> <cmd>lua require('subeet.telescope.fun').git_files()<cr>
-nnoremap <C-b> <cmd>lua require('subeet.telescope.fun').buffers()<cr>
-" }}}

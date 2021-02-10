@@ -47,4 +47,14 @@ function M.buffers()
     }
 end
 
+function M.live_grep()
+    tele.live_grep {
+        width = .25,
+        layout_strategy = "horizontal",
+        layout_config = {
+            preview_width = 0.65
+        }
+    }
+end
+
 return M
