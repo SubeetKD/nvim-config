@@ -5,7 +5,7 @@ local tele = require("telescope.builtin")
 
 local M = {}
 
-function M.edit_neovim()
+function M.edit_nvim()
     tele.find_files {
         prompt_title = "<== Dotfiles ==>",
         shorten_path = true,

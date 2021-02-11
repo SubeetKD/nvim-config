@@ -58,11 +58,12 @@ Plug 'patstockwell/vim-monokai-tasty'
 Plug 'sickill/vim-monokai'
 Plug 'tomasr/molokai'
 Plug 'joshdick/onedark.vim'
-" Plug 'gruvbox-community/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 Plug 'tjdevries/colorbuddy.vim'
 Plug 'tjdevries/gruvbuddy.nvim'
 Plug 'tomasiser/vim-code-dark'
 Plug 'glepnir/zephyr-nvim'
+" Plug 'npxbr/gruvbox.nvim'
 
 call plug#end()
 
@@ -136,15 +137,16 @@ let g:rehash256 = 1
 let g:onedark_termcolors = 256
 let g:onedark_terminal_italics = 1
 let g:ayucolor = "dark"
-let g:gruvbox_contrast_dark = "medium"
+let g:gruvbox_contrast_dark = "dark"
 let g:gruvbox_invert_selection='0'
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1
 let base16colorspace=256
 let g:vim_monokai_tasty_italic = 1
 
-colorscheme dracula
+colorscheme ayu
 " lua require('colorbuddy').colorscheme('gruvbuddy')
+" lua require("colorbuddy").colorscheme("gruvbox")
 
 set t_Co=256
 if exists('+termguicolors')
@@ -159,8 +161,8 @@ highlight Normal guibg=none
 " highlight LineNr guifg=#5eacd3
 " highlight netrwDir guifg=#5eacd3
 " highlight qfFileName guifg=#aed75f
-" highlight StatusLine guibg=none
-" highlight StatusLineNC guibg=none
+highlight StatusLine guibg=none
+highlight StatusLineNC guibg=none
 
 lua require('subeet.colorizer')
 
