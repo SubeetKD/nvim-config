@@ -1,113 +1,16 @@
-" Plugins {{{
- 
-call plug#begin('~/.config/nvim/plugged')
-
-"lsp and autocomplete
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
-Plug 'anott03/nvim-lspinstall'
-Plug 'glepnir/lspsaga.nvim'
-Plug 'kosayoda/nvim-lightbulb'
-
-" Helper plugins(TBD)
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " for fzf-checkout
-Plug 'nvim-lua/popup.nvim'  " telescope ...
-Plug 'nvim-lua/plenary.nvim' " telescope ...
-Plug 'mboughaba/i3config.vim' " i3config
-
-" snippets and commenter
-Plug 'norcalli/snippets.nvim'
-Plug 'b3nj5m1n/kommentary'
-Plug 'nvim-telescope/telescope.nvim'
-
-" Git config
-" Plug 'TimUntersberger/neogit'
-Plug 'f-person/git-blame.nvim'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'tpope/vim-fugitive'
-Plug 'stsewd/fzf-checkout.vim'
-
-" note and utility
-Plug 'alvan/vim-closetag'
-Plug 'vimwiki/vimwiki'
-Plug 'romainl/vim-cool'
-
-" Visual improvements
-Plug 'junegunn/goyo.vim'
-Plug 'Yggdroot/indentLine'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-
-" Statusline
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'ryanoasis/vim-devicons'
-
-" Colorscheme Messy 
-
-" gitsign compatible (don't know)
-Plug 'mhartington/oceanic-next'
-Plug 'ayu-theme/ayu-vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'Th3Whit3Wolf/one-nvim'
-Plug 'chriskempson/base16-vim'
-
-" Not compatible
-Plug 'patstockwell/vim-monokai-tasty'
-Plug 'sickill/vim-monokai'
-Plug 'tomasr/molokai'
-Plug 'joshdick/onedark.vim'
-Plug 'gruvbox-community/gruvbox'
-Plug 'tjdevries/colorbuddy.vim'
-Plug 'tjdevries/gruvbuddy.nvim'
-Plug 'tomasiser/vim-code-dark'
-Plug 'glepnir/zephyr-nvim'
-" Plug 'npxbr/gruvbox.nvim'
-
-call plug#end()
-
-" }}}
-
+lua require('subeet.plugins')
 lua require('subeet.basic.options')
+lua require('subeet.basic.maps')
+lua require('subeet.basic.abbr')
 
-" Basic Mappings {{{
-inoremap <A-BS> <C-w>
-vmap < <gv
-vmap > >gv
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-vnoremap X "_d
-nnoremap x "_x
-
-
-" window managment
-nnoremap <silent> <leader>l 5<C-w>><cr>
-nnoremap <silent> <leader>h 5<C-w><<cr>
-nnoremap <silent> <leader>j 5<C-w>-<cr>
-nnoremap <silent> <leader>k 5<C-w>+<cr>
-" }}}
-
-" Autocmd basic and abbr {{{
+" Remaining viml
+" Autocmd will be sourced from init.vim
 autocmd TermEnter * setlocal nonu nornu
-cnoreabbrev W! w!
-cnoreabbrev Q! q!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Qall qall
-
-autocmd BufEnter * silent! lcd %:p:h
 
 autocmd filetype cpp nnoremap <F5> :!g++ -std=c++17 -Wshadow -Wall -g -o program -O2 -Wno-unused-result -DLOCAL "%:r.cpp" <CR>
 autocmd filetype java nnoremap <F5> :w <bar> !javac % <CR>
-" autocmd filetype python nnoremap <F5> :w <bar> !python % <CR>
+autocmd filetype python nnoremap <F5> :w <bar> !python % <CR>
 autocmd filetype cpp nnoremap <F6> <cmd>!./program < in<cr>
-
 
 " F9/F10 compile/run default file.
 " F11/F12 compile/run alternate file.
@@ -132,21 +35,6 @@ aug end
 " }}}
 
 " Colorscheme and goyo and visual {{{
-let g:molokai_original = 1
-let g:rehash256 = 1
-let g:onedark_termcolors = 256
-let g:onedark_terminal_italics = 1
-let g:ayucolor = "dark"
-let g:gruvbox_contrast_dark = "dark"
-let g:gruvbox_invert_selection='0'
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-let base16colorspace=256
-let g:vim_monokai_tasty_italic = 1
-
-colorscheme ayu
-" lua require('colorbuddy').colorscheme('gruvbuddy')
-" lua require("colorbuddy").colorscheme("gruvbox")
 
 set t_Co=256
 if exists('+termguicolors')
@@ -154,8 +42,10 @@ if exists('+termguicolors')
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+lua require('subeet.colorscheme.index')
+
 highlight ColorColumn ctermbg=0 guibg=grey
-highlight Normal guibg=none
+" highlight Normal guibg=none
 " highlight LineNr guifg=#ff8542
 " highlight LineNr guifg=#aed75f
 " highlight LineNr guifg=#5eacd3
@@ -163,10 +53,6 @@ highlight Normal guibg=none
 " highlight qfFileName guifg=#aed75f
 highlight StatusLine guibg=none
 highlight StatusLineNC guibg=none
-
-lua require('subeet.colorizer')
-
-let g:indentLine_char = '|'
 
 " GOYO Fun
 function! s:goyo_enter()
@@ -195,8 +81,6 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-lua require('subeet.statusline')
 " }}}
 
 " Git status {{{
@@ -215,7 +99,7 @@ lua require('subeet.gitsigns')
 " Autocompletion, syntax highlighting, snippets {{{
 lua require('subeet.treesitter')
 
-autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+"autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 
 lua require('subeet.snippets.snips')
 
@@ -272,3 +156,4 @@ let g:vimwiki_ext2syntax = {'.md':'markdown','.markdown':'markdown','.mdown':'ma
 
 " File finder
 lua require('subeet.telescope.index')
+lua require('subeet.utils.nvim-tree')
