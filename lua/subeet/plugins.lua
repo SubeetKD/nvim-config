@@ -20,10 +20,12 @@ return require('packer').startup(function()
 
     -- LSP and completion
     use { 'neovim/nvim-lspconfig'}
-    use { 'nvim-lua/completion-nvim'}
+    -- use { 'nvim-lua/completion-nvim'}
+    use { 'hrsh7th/nvim-compe' }
     use { 'anott03/nvim-lspinstall'}
     use { 'glepnir/lspsaga.nvim'}
     use { 'kosayoda/nvim-lightbulb'}
+    use { 'tjdevries/nlua.nvim' }
 
     -- Helper Plugins
     use { 'junegunn/fzf', run = vim.fn['fzf#install()']  }  -- for fzf-checkout}
@@ -35,6 +37,8 @@ return require('packer').startup(function()
     use { 'norcalli/snippets.nvim'}
     use { 'b3nj5m1n/kommentary'}
     use { 'nvim-telescope/telescope.nvim'}
+    use { 'hrsh7th/vim-vsnip' }
+    use { 'hrsh7th/vim-vsnip-integ' }
 
     -- Git config
     -- use { 'TimUntersberger/neogit'}

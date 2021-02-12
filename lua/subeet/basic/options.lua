@@ -18,6 +18,8 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.mouse = "a"
 vim.o.guifont = "JetBrainsMono Nerd Font Mono:h13"
+vim.o.shortmess = vim.o.shortmess .. "c"
+vim.o.completeopt = "menuone,noinsert,noselect"
 
 -- Local to window
 vim.wo.wrap = false

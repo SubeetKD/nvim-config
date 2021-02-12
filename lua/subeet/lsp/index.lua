@@ -1,5 +1,8 @@
+-- require('subeet.lsp.completions-nvim')
+require('subeet.lsp.nvim-compe')
+
 local nvim_lsp = require("lspconfig")
-local completion = require("completion")
+-- local completion = require("completion")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 -- TODO(Subeet):
@@ -100,12 +103,12 @@ local on_attach = function(client, bufnr)
         vim.api.nvim_command [[augroup END]]
     end
 
-    completion.on_attach(
+    --[[ completion.on_attach(
         {
             matching_strategy_list = {"exact", "substring", "fuzzy"},
             chain_complete_list = chain_complete_list
         }
-    )
+    ) ]]
 end
 
 -- Use a loop to conveniently both setup defined servers
