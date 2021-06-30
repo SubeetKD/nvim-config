@@ -1,4 +1,4 @@
--- require('colorbuddy').colorscheme('gruvbuddy')
+require('colorbuddy').colorscheme('gruvbuddy')
 
 local statuline = require "lualine"
 

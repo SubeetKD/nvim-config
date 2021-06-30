@@ -41,6 +41,6 @@ highlight String gui=italic cterm=italic
 let g:tokyonight_style="storm"
 
 " tokyonight.nvim
-colorscheme tokyonight
+" colorscheme tokyonight
 
 " colorscheme onedark
