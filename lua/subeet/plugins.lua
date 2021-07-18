@@ -23,13 +23,24 @@ return require('packer').startup(function()
     use 'tpope/vim-surround'
     use 'tpope/vim-commentary'
     use {
+        'norcalli/nvim-colorizer.lua',
+        config = function ()
+            local color = require('colorizer')
+            color.setup( {
+                '*'; -- Highlight all files, but customize some others.
+                css = { rgb_fn = true; css = true; }; -- Enable parsing rgb(...) functions in css.
+                html = { names = false; } -- Disable parsing "names" like Blue or Gray
+            }, {mode = 'foreground'})
+        end
+    }
+    use {
         'windwp/nvim-autopairs',
         config = function()
             require('nvim-autopairs').setup({
-                  disable_filetype = { "TelescopePrompt" , "vim" },
-              })
-          end
-      }
+                disable_filetype = { "TelescopePrompt" , "vim" },
+            })
+        end
+    }
     use 'tpope/vim-fugitive'
     use {
         'kyazdani42/nvim-tree.lua',
@@ -191,8 +202,6 @@ return require('packer').startup(function()
     use {
         'glepnir/galaxyline.nvim',
         branch = 'main',
-        -- your statusline
-        config = function() require'subeet.colorscheme.evilline' end,
         -- some optional icons
         requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
@@ -203,6 +212,19 @@ return require('packer').startup(function()
         run = ':TSUpdate'
     }
 
+    -- vimwiki (lots of current notes are in wiki)
+    use { 
+        'vimwiki/vimwiki',
+        config = function ()
+            vim.g.vimwiki_list = {
+                {
+                    path = '~/coding/vimwiki_new',
+                    syntax = 'markdown',
+                    ext = '.md',
+                },
+            }
+        end
+    }
 
     -- neorg modern org mode
     use {

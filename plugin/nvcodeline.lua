@@ -1,5 +1,10 @@
 -- require'nvim-web-devicons'.setup()
 
+-- maybe read a global value for deciding the theme
+if true then
+    return
+end
+
 local gl = require('galaxyline')
 local gls = gl.section
 gl.short_line_list = {'LuaTree','vista','dbui'}

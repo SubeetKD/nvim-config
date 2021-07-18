@@ -1,4 +1,9 @@
-local gl = require('galaxyline')
+local has_evilline, gl = pcall(require, "galaxyline")
+
+if not has_evilline then
+    return
+end
+
 local gls = gl.section
 gl.short_line_list = {'NvimTree','vista','dbui'}
 
