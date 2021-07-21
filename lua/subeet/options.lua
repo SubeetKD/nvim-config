@@ -46,7 +46,6 @@ opt.relativenumber = true                         -- show relative line of other
 
 -- completion menu configuration
 opt.completeopt='menuone,noinsert,noselect,preview'
-
 -- better searching
 opt.inccommand = 'split'
 opt.hlsearch = true
