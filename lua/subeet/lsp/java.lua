@@ -103,22 +103,26 @@ function M.setup()
                     template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"
                 }
             };
-            configuration = {
-                runtimes = {
-                    {
-                        name = "JavaSE-11",
-                        path = home .. "/.sdkman/candidates/java/11.0.10-open/",
-                    },
-                    {
-                        name = "JavaSE-14",
-                        path = home .. "/.sdkman/candidates/java/14.0.2-open/",
-                    },
-                    {
-                        name = "JavaSE-15",
-                        path = home .. "/.sdkman/candidates/java/15.0.1-open/",
-                    },
-                }
-            };
+            -- configuration = {
+            --     runtimes = {
+            --         {
+            --             name = "JavaSE-8",
+            --             path = "/usr/lib/jvm/java-1.8.0-openjdk-amd64/"
+            --         }
+                    -- {
+                    --     name = "JavaSE-11",
+                    --     path = home .. "/.sdkman/candidates/java/11.0.10-open/",
+                    -- },
+                    -- {
+                    --     name = "JavaSE-14",
+                    --     path = home .. "/.sdkman/candidates/java/14.0.2-open/",
+                    -- },
+                    -- {
+                    --     name = "JavaSE-15",
+                    --     path = home .. "/.sdkman/candidates/java/15.0.1-open/",
+                    -- },
+                -- }
+            -- };
         };
     }
 
@@ -129,20 +133,20 @@ function M.setup()
     end
 
 
-    -- local jar_patterns = {
-    --     '/dev/microsoft/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar',
-    --     '/dev/dgileadi/vscode-java-decompiler/server/*.jar',
-    --     '/dev/microsoft/vscode-java-test/server/*.jar',
-    -- }
+    local jar_patterns = {
+        '/dev/microsoft/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar',
+        -- '/dev/dgileadi/vscode-java-decompiler/server/*.jar',
+        '/dev/microsoft/vscode-java-test/server/*.jar',
+    }
 
-    -- local bundles = {}
-    -- for _, jar_pattern in ipairs(jar_patterns) do
-    --   for _, bundle in ipairs(vim.split(vim.fn.glob(home .. jar_pattern), '\n')) do
-    --     if not vim.endswith(bundle, 'com.microsoft.java.test.runner.jar') then
-    --       table.insert(bundles, bundle)
-    --     end
-    --   end
-    -- end
+    local bundles = {}
+    for _, jar_pattern in ipairs(jar_patterns) do
+      for _, bundle in ipairs(vim.split(vim.fn.glob(home .. jar_pattern), '\n')) do
+        if not vim.endswith(bundle, 'com.microsoft.java.test.runner.jar') then
+          table.insert(bundles, bundle)
+        end
+      end
+    end
 
     local extendedClientCapabilities = require'jdtls'.extendedClientCapabilities
     extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
