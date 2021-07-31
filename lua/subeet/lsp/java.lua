@@ -3,7 +3,7 @@ local M = {}
 local function on_attach(client, bufnr)
     require('jdtls.setup').add_commands()
     require('jdtls').setup_dap()
-    require('lsp-status').register_progress()
+    -- require('lsp-status').register_progress()
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
       local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -102,6 +102,15 @@ function M.setup()
                 toString = {
                     template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"
                 }
+            };
+            configuration = {
+                runtimes = {
+                    {
+                        name = "JavaSE-1.8",
+                        path = "/usr/lib/jvm/java-1.8.0-openjdk-amd64/",
+                        default = true,
+                    },
+                },
             };
             -- configuration = {
             --     runtimes = {

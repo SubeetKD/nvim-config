@@ -167,7 +167,10 @@ return require('packer').startup(function()
     use 'mfussenegger/nvim-jdtls'
 
     -- debugger
-    use 'mfussenegger/nvi-dap'
+    use 'mfussenegger/nvim-dap'
+
+    -- better ui for nvim-dap
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 
     -- telescope.nvim
     use {
