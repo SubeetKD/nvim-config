@@ -3,9 +3,11 @@ local opt = vim.opt
 -- enable when using venn
 -- opt.virtualedit = 'all'             -- for selecting region beyond limit
 
+opt.guicursor = ""
+
 opt.mouse="a"
 
-opt.cursorline = true
+opt.cursorline = false
 
 opt.autoread = true                 -- read file when changed
 opt.autowrite = true                -- write file if changed
@@ -52,4 +54,4 @@ opt.hlsearch = true
 opt.incsearch = true
 
 
--- vim.cmd("colorscheme NeoSolarized")
+vim.cmd("colorscheme gruvbox")

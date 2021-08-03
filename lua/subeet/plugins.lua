@@ -4,8 +4,8 @@ local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-	execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
-	execute 'packadd packer.nvim'
+    execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
+    execute 'packadd packer.nvim'
     execute 'PackerCompile'
     execute 'PackerInstall'
 end
@@ -30,7 +30,7 @@ return require('packer').startup(function()
                 '*'; -- Highlight all files, but customize some others.
                 css = { rgb_fn = true; css = true; }; -- Enable parsing rgb(...) functions in css.
                 html = { names = false; } -- Disable parsing "names" like Blue or Gray
-            }, {mode = 'foreground'})
+            }, {mode = 'background'})
         end
     }
     use {
@@ -183,11 +183,10 @@ return require('packer').startup(function()
         'tjdevries/gruvbuddy.nvim',
         requires = {
             'tjdevries/colorbuddy.vim',
-        },
-        config = function()
-            require('colorbuddy').colorscheme('gruvbuddy')
-        end
+        }
     }
+
+    use "gruvbox-community/gruvbox"
 
     -- Basic lsp colors
     use { 
@@ -207,6 +206,11 @@ return require('packer').startup(function()
         branch = 'main',
         -- some optional icons
         requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    }
+
+    -- zen mode
+    use {
+        "folke/zen-mode.nvim",
     }
 
     -- treesitter
