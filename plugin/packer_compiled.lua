@@ -100,12 +100,12 @@ _G.packer_plugins = {
     path = "/home/subeet/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim"
   },
   ["lspkind-nvim"] = {
-    config = { "\27LJ\2\n�\2\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\15symbol_map\1\0\20\rFunction\b\vMethod\aƒ\tText\b\tEnum\b了\vStruct\b\nValue\b\rConstant\b\tUnit\b\15EnumMember\b\rProperty\b\vFolder\b\vModule\b\tFile\b\14Interface\bﰮ\nColor\b\nClass\b\fSnippet\b﬌\rVariable\b\fKeyword\b\16Constructor\b\1\0\2\vpreset\rcodicons\14with_text\2\tinit\flspkind\frequire\0" },
+    config = { "\27LJ\2\n�\2\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\15symbol_map\1\0\20\vFolder\b\14Interface\bﰮ\15EnumMember\b\nClass\b\rConstant\b\rVariable\b\vStruct\b\16Constructor\b\rFunction\b\vMethod\aƒ\tText\b\tFile\b\nColor\b\fSnippet\b﬌\fKeyword\b\tEnum\b了\nValue\b\tUnit\b\rProperty\b\vModule\b\1\0\2\vpreset\rcodicons\14with_text\2\tinit\flspkind\frequire\0" },
     loaded = true,
     path = "/home/subeet/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
   },
   neorg = {
-    config = { "\27LJ\2\n�\2\0\2\b\0\t\0\0169\2\0\1'\4\1\0005\5\6\0004\6\5\0005\a\2\0>\a\1\0065\a\3\0>\a\2\0065\a\4\0>\a\3\0065\a\5\0>\a\4\6=\6\a\0055\6\b\0B\2\4\1K\0\1\0\1\0\2\fnoremap\2\vsilent\2\6n\1\0\0\1\3\0\0\14<C-Space>-core.norg.qol.todo_items.todo.task_cycle\1\3\0\0\bgtp/core.norg.qol.todo_items.todo.task_pending\1\3\0\0\bgtu.core.norg.qol.todo_items.todo.task_undone\1\3\0\0\bgtd,core.norg.qol.todo_items.todo.task_done\tnorg\22map_event_to_mode|\1\0\6\0\6\0\t'\0\0\0006\1\1\0'\3\2\0B\1\2\0029\2\3\1'\4\4\0003\5\5\0B\2\3\1K\0\1\0\0)core.keybinds.events.enable_keybinds\ron_event\20neorg.callbacks\frequire\14<Leader>o�\4\1\0\b\0$\0)6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2 \0005\3\3\0004\4\0\0=\4\4\0034\4\0\0=\4\5\0035\4\29\0005\5\r\0005\6\6\0005\a\a\0=\a\b\0065\a\t\0=\a\n\0065\a\v\0=\a\f\6=\6\14\0055\6\15\0=\6\16\0055\6\17\0005\a\18\0=\a\19\0065\a\20\0=\a\21\0065\a\22\0=\a\23\0065\a\24\0=\a\25\6=\6\26\0055\6\27\0=\6\28\5=\5\30\4=\4\31\3=\3!\0023\3\"\0=\3#\2B\0\2\1K\0\1\0\thook\0\tload\1\0\0\21core.norg.dirman\nicons\1\0\0\vmarker\1\0\2\ticon\b\fenabled\2\fheading\flevel_4\1\0\2\ticon\b•\fenabled\2\flevel_3\1\0\2\ticon\b✿\fenabled\2\flevel_2\1\0\2\ticon\b○\fenabled\2\flevel_1\1\0\2\ticon\b◉\fenabled\2\1\0\1\fenabled\2\nquote\1\0\2\ticon\b∣\fenabled\2\ttodo\1\0\0\vundone\1\0\2\ticon\a×\fenabled\2\fpending\1\0\2\ticon\b\fenabled\2\tdone\1\0\2\ticon\b\fenabled\2\1\0\1\fenabled\2\24core.norg.concealer\18core.defaults\1\0\0\nsetup\nneorg\frequire\0" },
+    config = { "\27LJ\2\n�\2\0\2\b\0\t\0\0169\2\0\1'\4\1\0005\5\6\0004\6\5\0005\a\2\0>\a\1\0065\a\3\0>\a\2\0065\a\4\0>\a\3\0065\a\5\0>\a\4\6=\6\a\0055\6\b\0B\2\4\1K\0\1\0\1\0\2\fnoremap\2\vsilent\2\6n\1\0\0\1\3\0\0\14<C-Space>-core.norg.qol.todo_items.todo.task_cycle\1\3\0\0\bgtp/core.norg.qol.todo_items.todo.task_pending\1\3\0\0\bgtu.core.norg.qol.todo_items.todo.task_undone\1\3\0\0\bgtd,core.norg.qol.todo_items.todo.task_done\tnorg\22map_event_to_mode|\1\0\6\0\6\0\t'\0\0\0006\1\1\0'\3\2\0B\1\2\0029\2\3\1'\4\4\0003\5\5\0B\2\3\1K\0\1\0\0)core.keybinds.events.enable_keybinds\ron_event\20neorg.callbacks\frequire\14<Leader>o�\4\1\0\b\0$\0)6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2 \0005\3\3\0004\4\0\0=\4\4\0034\4\0\0=\4\5\0035\4\29\0005\5\r\0005\6\6\0005\a\a\0=\a\b\0065\a\t\0=\a\n\0065\a\v\0=\a\f\6=\6\14\0055\6\15\0=\6\16\0055\6\17\0005\a\18\0=\a\19\0065\a\20\0=\a\21\0065\a\22\0=\a\23\0065\a\24\0=\a\25\6=\6\26\0055\6\27\0=\6\28\5=\5\30\4=\4\31\3=\3!\0023\3\"\0=\3#\2B\0\2\1K\0\1\0\thook\0\tload\1\0\0\21core.norg.dirman\nicons\1\0\0\vmarker\1\0\2\fenabled\2\ticon\b\fheading\flevel_4\1\0\2\fenabled\2\ticon\b•\flevel_3\1\0\2\fenabled\2\ticon\b✿\flevel_2\1\0\2\fenabled\2\ticon\b○\flevel_1\1\0\2\fenabled\2\ticon\b◉\1\0\1\fenabled\2\nquote\1\0\2\fenabled\2\ticon\b∣\ttodo\1\0\0\vundone\1\0\2\fenabled\2\ticon\a×\fpending\1\0\2\fenabled\2\ticon\b\tdone\1\0\2\fenabled\2\ticon\b\1\0\1\fenabled\2\24core.norg.concealer\18core.defaults\1\0\0\nsetup\nneorg\frequire\0" },
     loaded = true,
     path = "/home/subeet/.local/share/nvim/site/pack/packer/start/neorg"
   },
@@ -120,7 +120,7 @@ _G.packer_plugins = {
     path = "/home/subeet/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
   },
   ["nvim-compe"] = {
-    config = { "\27LJ\2\n�\4\0\0\a\0\16\1\0216\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\5\0005\4\4\0=\4\6\0036\4\a\0009\4\b\0046\6\t\0009\6\n\0069\6\v\6\24\6\0\6B\4\2\2=\4\f\3=\3\r\0025\3\14\0=\3\15\2B\0\2\1K\0\1\0\vsource\1\0\n\nvsnip\1\rnvim_lua\2\rnvim_lsp\2\tcalc\2\tpath\2\forgmode\2\vbuffer\2\nneorg\2\fluasnip\2\14ultisnips\1\18documentation\15max_height\nlines\6o\bvim\nfloor\tmath\vborder\1\0\4\14min_width\3<\14max_width\3x\17winhighlightHNormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder\15min_height\3\1\1\t\0\0\5\5\5\6 \5\5\5\6 \1\0\f\20resolve_timeout\3�\6\19source_timeout\3�\1\18throttle_time\3P\ndebug\1\14preselect\venable\15min_length\3\1\17autocomplete\2\fenabled\2\19max_menu_width\3d\19max_kind_width\3d\19max_abbr_width\3d\21incomplete_delay\3�\3\nsetup\ncompe\frequire�̙�\6����\3\0" },
+    config = { "\27LJ\2\n�\4\0\0\a\0\16\1\0216\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\5\0005\4\4\0=\4\6\0036\4\a\0009\4\b\0046\6\t\0009\6\n\0069\6\v\6\24\6\0\6B\4\2\2=\4\f\3=\3\r\0025\3\14\0=\3\15\2B\0\2\1K\0\1\0\vsource\1\0\n\nneorg\2\vbuffer\2\fluasnip\2\14ultisnips\1\nvsnip\1\rnvim_lua\2\rnvim_lsp\2\tcalc\2\forgmode\2\tpath\2\18documentation\15max_height\nlines\6o\bvim\nfloor\tmath\vborder\1\0\4\14max_width\3x\17winhighlightHNormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder\15min_height\3\1\14min_width\3<\1\t\0\0\5\5\5\6 \5\5\5\6 \1\0\f\ndebug\1\19max_menu_width\3d\19max_kind_width\3d\19max_abbr_width\3d\21incomplete_delay\3�\3\20resolve_timeout\3�\6\19source_timeout\3�\1\18throttle_time\3P\14preselect\venable\15min_length\3\1\17autocomplete\2\fenabled\2\nsetup\ncompe\frequire�̙�\6����\3\0" },
     loaded = true,
     path = "/home/subeet/.local/share/nvim/site/pack/packer/start/nvim-compe"
   },
@@ -186,7 +186,7 @@ _G.packer_plugins = {
     path = "/home/subeet/.local/share/nvim/site/pack/packer/start/vim-surround"
   },
   vimwiki = {
-    config = { "\27LJ\2\nk\0\0\3\0\4\0\a6\0\0\0009\0\1\0004\1\3\0005\2\3\0>\2\1\1=\1\2\0K\0\1\0\1\0\3\tpath\25~/coding/vimwiki_new\bext\b.md\vsyntax\rmarkdown\17vimwiki_list\6g\bvim\0" },
+    config = { "\27LJ\2\nk\0\0\3\0\4\0\a6\0\0\0009\0\1\0004\1\3\0005\2\3\0>\2\1\1=\1\2\0K\0\1\0\1\0\3\bext\b.md\tpath\25~/coding/vimwiki_new\vsyntax\rmarkdown\17vimwiki_list\6g\bvim\0" },
     loaded = true,
     path = "/home/subeet/.local/share/nvim/site/pack/packer/start/vimwiki"
   },
@@ -197,17 +197,17 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: nvim-compe
+time([[Config for nvim-compe]], true)
+try_loadstring("\27LJ\2\n�\4\0\0\a\0\16\1\0216\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\5\0005\4\4\0=\4\6\0036\4\a\0009\4\b\0046\6\t\0009\6\n\0069\6\v\6\24\6\0\6B\4\2\2=\4\f\3=\3\r\0025\3\14\0=\3\15\2B\0\2\1K\0\1\0\vsource\1\0\n\nneorg\2\vbuffer\2\fluasnip\2\14ultisnips\1\nvsnip\1\rnvim_lua\2\rnvim_lsp\2\tcalc\2\forgmode\2\tpath\2\18documentation\15max_height\nlines\6o\bvim\nfloor\tmath\vborder\1\0\4\14max_width\3x\17winhighlightHNormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder\15min_height\3\1\14min_width\3<\1\t\0\0\5\5\5\6 \5\5\5\6 \1\0\f\ndebug\1\19max_menu_width\3d\19max_kind_width\3d\19max_abbr_width\3d\21incomplete_delay\3�\3\20resolve_timeout\3�\6\19source_timeout\3�\1\18throttle_time\3P\14preselect\venable\15min_length\3\1\17autocomplete\2\fenabled\2\nsetup\ncompe\frequire�̙�\6����\3\0", "config", "nvim-compe")
+time([[Config for nvim-compe]], false)
 -- Config for: LuaSnip
 time([[Config for LuaSnip]], true)
 try_loadstring("\27LJ\2\n\v\0\0\1\0\0\0\1K\0\1\0\0", "config", "LuaSnip")
 time([[Config for LuaSnip]], false)
--- Config for: nvim-compe
-time([[Config for nvim-compe]], true)
-try_loadstring("\27LJ\2\n�\4\0\0\a\0\16\1\0216\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\5\0005\4\4\0=\4\6\0036\4\a\0009\4\b\0046\6\t\0009\6\n\0069\6\v\6\24\6\0\6B\4\2\2=\4\f\3=\3\r\0025\3\14\0=\3\15\2B\0\2\1K\0\1\0\vsource\1\0\n\nvsnip\1\rnvim_lua\2\rnvim_lsp\2\tcalc\2\tpath\2\forgmode\2\vbuffer\2\nneorg\2\fluasnip\2\14ultisnips\1\18documentation\15max_height\nlines\6o\bvim\nfloor\tmath\vborder\1\0\4\14min_width\3<\14max_width\3x\17winhighlightHNormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder\15min_height\3\1\1\t\0\0\5\5\5\6 \5\5\5\6 \1\0\f\20resolve_timeout\3�\6\19source_timeout\3�\1\18throttle_time\3P\ndebug\1\14preselect\venable\15min_length\3\1\17autocomplete\2\fenabled\2\19max_menu_width\3d\19max_kind_width\3d\19max_abbr_width\3d\21incomplete_delay\3�\3\nsetup\ncompe\frequire�̙�\6����\3\0", "config", "nvim-compe")
-time([[Config for nvim-compe]], false)
 -- Config for: neorg
 time([[Config for neorg]], true)
-try_loadstring("\27LJ\2\n�\2\0\2\b\0\t\0\0169\2\0\1'\4\1\0005\5\6\0004\6\5\0005\a\2\0>\a\1\0065\a\3\0>\a\2\0065\a\4\0>\a\3\0065\a\5\0>\a\4\6=\6\a\0055\6\b\0B\2\4\1K\0\1\0\1\0\2\fnoremap\2\vsilent\2\6n\1\0\0\1\3\0\0\14<C-Space>-core.norg.qol.todo_items.todo.task_cycle\1\3\0\0\bgtp/core.norg.qol.todo_items.todo.task_pending\1\3\0\0\bgtu.core.norg.qol.todo_items.todo.task_undone\1\3\0\0\bgtd,core.norg.qol.todo_items.todo.task_done\tnorg\22map_event_to_mode|\1\0\6\0\6\0\t'\0\0\0006\1\1\0'\3\2\0B\1\2\0029\2\3\1'\4\4\0003\5\5\0B\2\3\1K\0\1\0\0)core.keybinds.events.enable_keybinds\ron_event\20neorg.callbacks\frequire\14<Leader>o�\4\1\0\b\0$\0)6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2 \0005\3\3\0004\4\0\0=\4\4\0034\4\0\0=\4\5\0035\4\29\0005\5\r\0005\6\6\0005\a\a\0=\a\b\0065\a\t\0=\a\n\0065\a\v\0=\a\f\6=\6\14\0055\6\15\0=\6\16\0055\6\17\0005\a\18\0=\a\19\0065\a\20\0=\a\21\0065\a\22\0=\a\23\0065\a\24\0=\a\25\6=\6\26\0055\6\27\0=\6\28\5=\5\30\4=\4\31\3=\3!\0023\3\"\0=\3#\2B\0\2\1K\0\1\0\thook\0\tload\1\0\0\21core.norg.dirman\nicons\1\0\0\vmarker\1\0\2\ticon\b\fenabled\2\fheading\flevel_4\1\0\2\ticon\b•\fenabled\2\flevel_3\1\0\2\ticon\b✿\fenabled\2\flevel_2\1\0\2\ticon\b○\fenabled\2\flevel_1\1\0\2\ticon\b◉\fenabled\2\1\0\1\fenabled\2\nquote\1\0\2\ticon\b∣\fenabled\2\ttodo\1\0\0\vundone\1\0\2\ticon\a×\fenabled\2\fpending\1\0\2\ticon\b\fenabled\2\tdone\1\0\2\ticon\b\fenabled\2\1\0\1\fenabled\2\24core.norg.concealer\18core.defaults\1\0\0\nsetup\nneorg\frequire\0", "config", "neorg")
+try_loadstring("\27LJ\2\n�\2\0\2\b\0\t\0\0169\2\0\1'\4\1\0005\5\6\0004\6\5\0005\a\2\0>\a\1\0065\a\3\0>\a\2\0065\a\4\0>\a\3\0065\a\5\0>\a\4\6=\6\a\0055\6\b\0B\2\4\1K\0\1\0\1\0\2\fnoremap\2\vsilent\2\6n\1\0\0\1\3\0\0\14<C-Space>-core.norg.qol.todo_items.todo.task_cycle\1\3\0\0\bgtp/core.norg.qol.todo_items.todo.task_pending\1\3\0\0\bgtu.core.norg.qol.todo_items.todo.task_undone\1\3\0\0\bgtd,core.norg.qol.todo_items.todo.task_done\tnorg\22map_event_to_mode|\1\0\6\0\6\0\t'\0\0\0006\1\1\0'\3\2\0B\1\2\0029\2\3\1'\4\4\0003\5\5\0B\2\3\1K\0\1\0\0)core.keybinds.events.enable_keybinds\ron_event\20neorg.callbacks\frequire\14<Leader>o�\4\1\0\b\0$\0)6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2 \0005\3\3\0004\4\0\0=\4\4\0034\4\0\0=\4\5\0035\4\29\0005\5\r\0005\6\6\0005\a\a\0=\a\b\0065\a\t\0=\a\n\0065\a\v\0=\a\f\6=\6\14\0055\6\15\0=\6\16\0055\6\17\0005\a\18\0=\a\19\0065\a\20\0=\a\21\0065\a\22\0=\a\23\0065\a\24\0=\a\25\6=\6\26\0055\6\27\0=\6\28\5=\5\30\4=\4\31\3=\3!\0023\3\"\0=\3#\2B\0\2\1K\0\1\0\thook\0\tload\1\0\0\21core.norg.dirman\nicons\1\0\0\vmarker\1\0\2\fenabled\2\ticon\b\fheading\flevel_4\1\0\2\fenabled\2\ticon\b•\flevel_3\1\0\2\fenabled\2\ticon\b✿\flevel_2\1\0\2\fenabled\2\ticon\b○\flevel_1\1\0\2\fenabled\2\ticon\b◉\1\0\1\fenabled\2\nquote\1\0\2\fenabled\2\ticon\b∣\ttodo\1\0\0\vundone\1\0\2\fenabled\2\ticon\a×\fpending\1\0\2\fenabled\2\ticon\b\tdone\1\0\2\fenabled\2\ticon\b\1\0\1\fenabled\2\24core.norg.concealer\18core.defaults\1\0\0\nsetup\nneorg\frequire\0", "config", "neorg")
 time([[Config for neorg]], false)
 -- Config for: nvim-autopairs
 time([[Config for nvim-autopairs]], true)
@@ -215,20 +215,20 @@ try_loadstring("\27LJ\2\nt\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\00
 time([[Config for nvim-autopairs]], false)
 -- Config for: vimwiki
 time([[Config for vimwiki]], true)
-try_loadstring("\27LJ\2\nk\0\0\3\0\4\0\a6\0\0\0009\0\1\0004\1\3\0005\2\3\0>\2\1\1=\1\2\0K\0\1\0\1\0\3\tpath\25~/coding/vimwiki_new\bext\b.md\vsyntax\rmarkdown\17vimwiki_list\6g\bvim\0", "config", "vimwiki")
+try_loadstring("\27LJ\2\nk\0\0\3\0\4\0\a6\0\0\0009\0\1\0004\1\3\0005\2\3\0>\2\1\1=\1\2\0K\0\1\0\1\0\3\bext\b.md\tpath\25~/coding/vimwiki_new\vsyntax\rmarkdown\17vimwiki_list\6g\bvim\0", "config", "vimwiki")
 time([[Config for vimwiki]], false)
--- Config for: lsp_signature.nvim
-time([[Config for lsp_signature.nvim]], true)
-try_loadstring("\27LJ\2\nn\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\17handler_opts\1\0\1\vborder\vsingle\1\0\1\tbind\2\nsetup\18lsp_signature\frequire\0", "config", "lsp_signature.nvim")
-time([[Config for lsp_signature.nvim]], false)
--- Config for: lspkind-nvim
-time([[Config for lspkind-nvim]], true)
-try_loadstring("\27LJ\2\n�\2\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\15symbol_map\1\0\20\rFunction\b\vMethod\aƒ\tText\b\tEnum\b了\vStruct\b\nValue\b\rConstant\b\tUnit\b\15EnumMember\b\rProperty\b\vFolder\b\vModule\b\tFile\b\14Interface\bﰮ\nColor\b\nClass\b\fSnippet\b﬌\rVariable\b\fKeyword\b\16Constructor\b\1\0\2\vpreset\rcodicons\14with_text\2\tinit\flspkind\frequire\0", "config", "lspkind-nvim")
-time([[Config for lspkind-nvim]], false)
 -- Config for: nvim-colorizer.lua
 time([[Config for nvim-colorizer.lua]], true)
 try_loadstring("\27LJ\2\n�\1\0\0\5\0\t\0\f6\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\3\0005\4\4\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0B\1\3\1K\0\1\0\1\0\1\tmode\15background\thtml\1\0\1\nnames\1\bcss\1\0\2\vrgb_fn\2\bcss\2\1\2\0\0\6*\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
 time([[Config for nvim-colorizer.lua]], false)
+-- Config for: lspkind-nvim
+time([[Config for lspkind-nvim]], true)
+try_loadstring("\27LJ\2\n�\2\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\15symbol_map\1\0\20\vFolder\b\14Interface\bﰮ\15EnumMember\b\nClass\b\rConstant\b\rVariable\b\vStruct\b\16Constructor\b\rFunction\b\vMethod\aƒ\tText\b\tFile\b\nColor\b\fSnippet\b﬌\fKeyword\b\tEnum\b了\nValue\b\tUnit\b\rProperty\b\vModule\b\1\0\2\vpreset\rcodicons\14with_text\2\tinit\flspkind\frequire\0", "config", "lspkind-nvim")
+time([[Config for lspkind-nvim]], false)
+-- Config for: lsp_signature.nvim
+time([[Config for lsp_signature.nvim]], true)
+try_loadstring("\27LJ\2\nn\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\17handler_opts\1\0\1\vborder\vsingle\1\0\1\tbind\2\nsetup\18lsp_signature\frequire\0", "config", "lsp_signature.nvim")
+time([[Config for lsp_signature.nvim]], false)
 if should_profile then save_profiles() end
 
 end)

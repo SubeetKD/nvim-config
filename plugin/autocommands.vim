@@ -1,8 +1,8 @@
-" " for java lsp
-augroup jdtls
-    autocmd!
-    autocmd FileType java lua require('subeet.lsp.java').start_jdt()
-augroup end
+" " " for java lsp
+" augroup jdtls
+"     autocmd!
+"     autocmd FileType java lua require('subeet.lsp.java').start_jdt()
+" augroup end
 
 " highlight on yank
 augroup highlight_yank
