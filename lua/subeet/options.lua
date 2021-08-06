@@ -53,5 +53,6 @@ opt.inccommand = 'split'
 opt.hlsearch = true
 opt.incsearch = true
 
+opt.pumblend=60
 
 vim.cmd("colorscheme gruvbox")

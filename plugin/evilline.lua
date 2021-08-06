@@ -1,6 +1,6 @@
 local has_evilline, gl = pcall(require, "galaxyline")
 
-if not has_evilline then
+if has_evilline then
     return
 end
 

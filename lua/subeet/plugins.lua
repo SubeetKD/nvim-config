@@ -158,8 +158,15 @@ return require('packer').startup(function()
     -- snippet
     use {
         'L3MON4D3/LuaSnip',
+    }
+
+    -- better icons for the completion window
+    use {
+        'yamatsum/nvim-nonicons',
+        requires = {'kyazdani42/nvim-web-devicons'},
         config = function ()
-            -- currently nothing, will add later (maybe source other file)
+            local icons = require("nvim-nonicons")
+            icons.get("file")
         end
     }
 
@@ -206,6 +213,22 @@ return require('packer').startup(function()
         branch = 'main',
         -- some optional icons
         requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    }
+
+    -- configuration for evilline
+    use {'konapun/vacuumline.nvim', requires = {
+        'glepnir/galaxyline.nvim', branch = 'main',
+        'kyazdani42/nvim-web-devicons', opt = true
+    }, config = function() require('vacuumline').setup() end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
+
+    use {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function ()
+            require("indent_blankline").setup {
+                char = "|",
+                buftype_exclude = {"terminal"}
+            }
+        end
     }
 
     -- zen mode
@@ -329,5 +352,12 @@ return require('packer').startup(function()
         }
     end,
     requires = "nvim-lua/plenary.nvim"
+}
+use {
+    'akinsho/nvim-bufferline.lua',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function ()
+        require('bufferline').setup{}
+    end
 }
 end)
